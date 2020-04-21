@@ -13,23 +13,15 @@ To make this template works in any other AWS Regions, the adapted LAMPv7 AMI mus
 Which can be achieved by re-importing the adapted LAMPv7 VM, or by copying the adapted LAMPv7 AMI in Singapore to the targeted AWS Region.
 Once the adapted LAMPv7 AMI exist in the targeted AWS Region, the AMI ID of the adapted LAMPv7 need to be indicated properly (i.e. not using the default value) during execution of this template.
 
-The Big-IP AMI should be available in most (if not ALL) of AWS Regions (as part of F5 Networks effort to sell usage of their product in AWS).
+The Big-IP AMI should be available in most (if not ALL) of AWS Regions as part of F5 Networks effort to sell usage of their product in AWS.
 Only the correct AMI ID of Big-IP within the targeted AWS Region is needed, which should not be difficult to find.
 Just a note that this CloudFormation template were tested with Big-IP version 15.0.1 build 0.0.11.
 You will also need a valid F5 Big-IP License to execute this template.
 
 This template creates:
 1. One F5's LAMPv7 instance which had been adapted to AWS environment in certain extend.
-2. One F5's Big-IP instance, licensed configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
+2. One F5's Big-IP instance, licensed the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
 
-
-
-
-
-
-
-
-
-
+The whole template require around 30 minutes to fully completed. Although the CloudFormation stack itself stated it has completed, the instances themselves needs much more time to self-configure.
 
 
