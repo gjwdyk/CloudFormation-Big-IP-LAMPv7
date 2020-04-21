@@ -25,7 +25,7 @@ This template creates:
 The whole template require around 30 minutes to fully completed. Although the CloudFormation stack itself stated it has completed, the instances themselves needs much more time to self-configure.
 
 
-
+![Logical Network Diagram](figures/LogicalNetworkDiagram.png)
 
 
 
