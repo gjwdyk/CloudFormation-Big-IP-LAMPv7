@@ -25,7 +25,7 @@ This template creates:
 The whole template require around 30 minutes to fully completed. Although the CloudFormation stack itself stated it has completed, the instances themselves need much more time to self-configure.
 
 The diagram below depicts the Logical Network Diagram built by this CloudFormation template.
-![Logical Network Diagram](figures/LogicalNetworkDiagram.png)
+![Logical Network Diagram](Figures/LogicalNetworkDiagram.png)
 
 The output part of the CloudFormation template is only 100% valid in the case of AS3 Declaration URL is using the default value.
 Otherwise they're only partially valid (i.e. only management IPs/URLs are valid, while services' like Static Web Server, DVWA and Hackazon IPs/URLs are entirely dependent on AS3 Declaration URL).
