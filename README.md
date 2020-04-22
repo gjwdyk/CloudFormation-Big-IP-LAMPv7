@@ -31,6 +31,6 @@ This CloudFormation template is design for building Demo/Testing environment onl
 
 The output part of the CloudFormation template is only 100% valid in the case of AS3 Declaration URL is using the default value.
 Otherwise they're only partially valid (i.e. only management IPs/URLs are valid, while services' like Static Web Server, DVWA and Hackazon IPs/URLs are entirely dependent on AS3 Declaration URL).
-Refer to ![AS3](AS3-Simple-LTM/) as one example of AS3 Declaration.
+Refer to ![AS3](AS3-LTM-Simple/) as one example of AS3 Declaration.
 
 
