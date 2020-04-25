@@ -34,7 +34,7 @@ Otherwise they're only partially valid (i.e. only management IPs/URLs are valid,
 
 Refer to ![AS3-LTM-Simple](AS3-LTM-Simple/) as one example of AS3 Declaration.
 
-<p>
+***
 
 The ![CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json) template creates:
 1. One F5's LAMPv7 instance which had been adapted to AWS environment in certain extend.
