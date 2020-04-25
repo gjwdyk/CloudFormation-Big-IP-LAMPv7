@@ -18,7 +18,7 @@ Only the correct AMI ID of Big-IP within the targeted AWS Region is needed, whic
 Just a note that this CloudFormation template were tested with Big-IP version 15.0.1 build 0.0.11.
 You will also need a valid F5 Big-IP License to execute this template.
 
-This template creates:
+The ![CloudFormation_Big-IP_LAMPv7.json](CloudFormation_Big-IP_LAMPv7.json) template creates:
 1. One F5's LAMPv7 instance which had been adapted to AWS environment in certain extend.
 2. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
 
@@ -33,5 +33,12 @@ The output part of the CloudFormation template is only 100% valid in the case of
 Otherwise they're only partially valid (i.e. only management IPs/URLs are valid, while services' like Static Web Server, DVWA and Hackazon IPs/URLs are entirely dependent on AS3 Declaration URL).
 
 Refer to ![AS3-LTM-Simple](AS3-LTM-Simple/) as one example of AS3 Declaration.
+
+<p>
+
+The ![CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json) template creates:
+1. One F5's LAMPv7 instance which had been adapted to AWS environment in certain extend.
+2. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
+3. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
 
 
