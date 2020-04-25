@@ -1,4 +1,4 @@
-{
+{ 
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Default values within this AWS CloudFormation Template is valid only for AWS Region **Singapore**. **WARNING** This template creates a new VPC and all necessary AWS Resources including EC2 Instances to perform a Demo/Test environment. You will be billed by AWS for the AWS Resources used if you create a stack from this template.",
   "Mappings": {
