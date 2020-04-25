@@ -3,7 +3,7 @@
     "schemaVersion": "3.5.0",
     "id": "Sample-LTM-Declaration-for-LAMPv7",
     "label": "Sample LTM Declaration for LAMPv7",
-    "remark": "Simple HTTP Virtual Servers with Round Robin Pool",
+    "remark": "Simple HTTP and HTTPS Virtual Servers with Round Robin Pool",
     "Tenant_Class": {
         "class": "Tenant",
         "defaultRouteDomain": 0,
