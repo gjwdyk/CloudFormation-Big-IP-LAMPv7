@@ -28,30 +28,30 @@ The diagram below depicts the Logical Network Diagram built by this CloudFormati
 The output part of the CloudFormation template is only 100% valid in the case of AS3 Declaration URL is using the default value.
 Otherwise they're only partially valid (i.e. only management IPs/URLs are valid, while services' like Static Web Server, DVWA and Hackazon IPs/URLs are entirely dependent on AS3 Declaration URL).
 
-Refer to ![AS3-LTM-Simple](AS3-LTM-Simple/) as one example of AS3 Declaration.
+Refer to [AS3-LTM-Simple](AS3-LTM-Simple/) as one example of AS3 Declaration.
 
 
 
 ***
 
-The ![CloudFormation_Big-IP_LAMPv7.json](CloudFormation_Big-IP_LAMPv7.json) template creates:
+The [CloudFormation_Big-IP_LAMPv7.json](CloudFormation_Big-IP_LAMPv7.json) template creates:
 1. One F5's LAMPv7 instance which had been adapted to AWS environment in certain extend.
 2. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
 
-Default AS3 Declaration for ![CloudFormation_Big-IP_LAMPv7.json](CloudFormation_Big-IP_LAMPv7.json) is ![AS3-LTM-Simple](AS3-LTM-Simple/), but can be changed during the CloudFormation template deployment,
-provided the replacement AS3 Declaration fits into the Big-IP environment provided by the ![CloudFormation_Big-IP_LAMPv7.json](CloudFormation_Big-IP_LAMPv7.json) template.
+Default AS3 Declaration for [CloudFormation_Big-IP_LAMPv7.json](CloudFormation_Big-IP_LAMPv7.json) is [AS3-LTM-Simple](AS3-LTM-Simple/), but can be changed during the CloudFormation template deployment,
+provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CloudFormation_Big-IP_LAMPv7.json](CloudFormation_Big-IP_LAMPv7.json) template.
 
 
 
 ***
 
-The ![CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json) template creates:
+The [CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json) template creates:
 1. One F5's LAMPv7 instance which had been adapted to AWS environment in certain extend.
 2. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
 3. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
 
-Default AS3 Declaration for ![CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json) is ![AS3-LTM-SSLOffLoad](AS3-LTM-SSLOffLoad/), but can be changed during the CloudFormation template deployment,
-provided the replacement AS3 Declaration fits into the Big-IP environment provided by the ![CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json) template.
+Default AS3 Declaration for [CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json) is [AS3-LTM-SSLOffLoad](AS3-LTM-SSLOffLoad/), but can be changed during the CloudFormation template deployment,
+provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json) template.
 
 
 
