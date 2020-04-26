@@ -54,5 +54,3 @@ Default AS3 Declaration for [CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](Cloud
 provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json) template.
 
 
-
-
