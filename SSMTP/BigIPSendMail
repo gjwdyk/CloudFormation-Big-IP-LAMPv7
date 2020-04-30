@@ -1,0 +1,28 @@
+#!/bin/bash -xe
+
+Log_File=/config/HC.Log
+Flag_File=/config/Flags/$1.flag
+Detail_File=$2
+Detail_String=$3
+LogDetailLength=$4
+MailDetailLength=$5
+
+if [ ! -f "$Log_File" ]; then
+  /bin/sudo /bin/touch "$Log_File"
+fi
+
+if [ -f "$Flag_File" ]; then
+  if [ -f "$Detail_File" ]; then
+    /bin/sudo /bin/printf "`/bin/date +%Y%m%d%H%M%S` $Flag_File $Detail_File \"$Detail_String\"\n`/bin/tail --lines=$LogDetailLength $Detail_File | /bin/grep \"$Detail_String\"`\n" >> $Log_File
+  else
+    /bin/sudo /bin/printf "`/bin/date +%Y%m%d%H%M%S` : $Flag_File exists, $Detail_File NOT Exist, \"$Detail_String\"\n" >> $Log_File
+  fi
+else
+  if [ -f "$Detail_File" ]; then
+    /bin/sudo /bin/touch "$Flag_File"
+    /bin/sudo /bin/printf "Subject: $1\n\n$Detail_File \"$Detail_String\"\n\n`/bin/tail --lines=$MailDetailLength $Detail_File | /bin/grep \"$Detail_String\"`\n\n\n`/bin/date +%Y%m%d%H%M%S`\n`/bin/cat /config/BigIPUnitID`\n`/bin/curl http://169.254.169.254/latest/meta-data/public-hostname`" | /sbin/ssmtp -v "`/bin/cat /etc/ssmtp/eMailNotificationRecipient`"
+    /bin/sudo /bin/printf "`/bin/date +%Y%m%d%H%M%S` `/bin/cat /config/BigIPUnitID` `/bin/curl http://169.254.169.254/latest/meta-data/public-hostname` `/bin/cat /etc/ssmtp/eMailNotificationRecipient` $Flag_File $Detail_File \"$Detail_String\"\n`/bin/tail --lines=$MailDetailLength $Detail_File | /bin/grep \"$Detail_String\"`\n" >> $Log_File
+  else
+    /bin/sudo /bin/printf "`/bin/date +%Y%m%d%H%M%S` : $Flag_File NOT Exist, $Detail_File NOT Exists, \"$Detail_String\"\n" >> $Log_File
+  fi
+fi
