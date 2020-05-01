@@ -12,13 +12,13 @@ else
 fi
 
 if [ -z $2 ]; then
-  Extension=flag
+  Filter=*.flag
 else
-  Extension=$1
+  Filter=$2
 fi
 
 if [ -d $Directory ]; then
-  Flag_Files=$Directory*.$Extension
+  Flag_Files=$Directory$Filter
   for aFile in $Flag_Files
   do
     /bin/rm -f $aFile
