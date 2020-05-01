@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash
 
 Log_File=/config/HC.Log
 
