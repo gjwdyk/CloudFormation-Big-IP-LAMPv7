@@ -54,3 +54,16 @@ Default AS3 Declaration for [CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](Cloud
 provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json) template.
 
 
+
+***
+
+The [CF_Big-IP_LAMP_SSLOffLoad_MailNotification.json](CF_Big-IP_LAMP_SSLOffLoad_MailNotification.json) template creates:
+1. One F5's LAMPv7 instance which had been adapted to AWS environment in certain extend.
+2. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
+3. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
+4. Configure SSMTP and user_alert.conf to send email notification in case of an event. The example works with GMail's SMTP, and sending notification when a pool has no available member, and when the pool back to having a member available to handle the traffic.
+
+Default AS3 Declaration for [CF_Big-IP_LAMP_SSLOffLoad_MailNotification.json](CF_Big-IP_LAMP_SSLOffLoad_MailNotification.json) is [AS3-LTM-SSLOffLoad](AS3-LTM-SSLOffLoad/), but can be changed during the CloudFormation template deployment,
+provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json) template.
+
+
