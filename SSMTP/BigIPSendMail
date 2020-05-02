@@ -23,13 +23,13 @@ else
 fi
 
 if [ -z "$4" ]; then
-  LogDetailLength=3
+  LogDetailLength=1
 else
   LogDetailLength="$4"
 fi
 
 if [ -z "$5" ]; then
-  MailDetailLength=9
+  MailDetailLength=1
 else
   MailDetailLength="$5"
 fi
