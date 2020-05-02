@@ -41,8 +41,6 @@ The [CloudFormation_Big-IP_LAMPv7.json](CloudFormation_Big-IP_LAMPv7.json) templ
 Default AS3 Declaration for [CloudFormation_Big-IP_LAMPv7.json](CloudFormation_Big-IP_LAMPv7.json) is [AS3-LTM-Simple](AS3-LTM-Simple/), but can be changed during the CloudFormation template deployment,
 provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CloudFormation_Big-IP_LAMPv7.json](CloudFormation_Big-IP_LAMPv7.json) template.
 
-![https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=BigIP_LAMP&templateURL=https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/CF/CF_Big-IP_LAMP_SSLOffLoad_MailNotification.json](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)
-
 
 
 ***
@@ -59,6 +57,8 @@ provided the replacement AS3 Declaration fits into the Big-IP environment provid
 
 ***
 
+<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=BigIP_LAMP&templateURL=https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/CF/CF_Big-IP_LAMP_SSLOffLoad_MailNotification_Original.json"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></a>
+
 The [CF_Big-IP_LAMP_SSLOffLoad_MailNotification.json](CF_Big-IP_LAMP_SSLOffLoad_MailNotification.json) template creates:
 1. One F5's LAMPv7 instance which had been adapted to AWS environment in certain extend.
 2. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
@@ -67,5 +67,7 @@ The [CF_Big-IP_LAMP_SSLOffLoad_MailNotification.json](CF_Big-IP_LAMP_SSLOffLoad_
 
 Default AS3 Declaration for [CF_Big-IP_LAMP_SSLOffLoad_MailNotification.json](CF_Big-IP_LAMP_SSLOffLoad_MailNotification.json) is [AS3-LTM-SSLOffLoad](AS3-LTM-SSLOffLoad/), but can be changed during the CloudFormation template deployment,
 provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json](CloudFormation_Big-IP_LAMPv7_SSLOffLoad.json) template.
+
+<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=BigIP_LAMP&templateURL=https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/CF/CF_Big-IP_LAMP_SSLOffLoad_MailNotification.json"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></a>
 
 
