@@ -23,7 +23,7 @@ else
 fi
 
 if [ -z "$4" ]; then
-  LogDetailLength=1
+  LogDetailLength=0
 else
   LogDetailLength="$4"
 fi
