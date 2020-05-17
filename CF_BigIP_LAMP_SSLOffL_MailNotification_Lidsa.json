@@ -124,6 +124,7 @@
         },
         "Lidsa": {
             "Type": "String",
+            "NoEcho": "true",
             "Description": "Lorem Ipsum Dolor Sit Amet string. Proposed format are Lorem\\nIpsum\\nDolor\\nSit\\nAmet."
         }
     },
