@@ -100,4 +100,11 @@ provided the replacement AS3 Declaration fits into the Big-IP environment provid
 
 ***
 
+The diagram below depicts the Logical Network Diagram built by this CloudFormation template.
+![Logical Network Diagram with Windows Server](Figures/LogicalNetworkDiagramWindows.png)
+
+
+
+***
+
 
