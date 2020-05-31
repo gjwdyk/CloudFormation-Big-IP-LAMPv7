@@ -105,15 +105,20 @@ The diagram below depicts the Logical Network Diagram built by this CloudFormati
 
 To Do:
 - [ ] Harden Windows
+- [ ] Update GitHub Documentation for Windows
 - [ ] Log Rotate LAMP
+- [ ] Update GitHub Documentation for LAMP
 - [ ] Update CF:
    - [ ] Use new AMI IDs
    - [ ] Update Previous CF templates with the new AMI IDs
    - [ ] Provision: LTM, AVR, ASM, APM
+   - [ ] Update GitHub Documentation for the Above
 - [ ] Improve Lidsa when not using (not to Err), and default value to e.g. "none" (like AS3 field)
+- [ ] Update GitHub Documentation for Lidsa
 - [ ] AVR
 - [ ] Default ASM Profiles
 - [ ] APM (when applicable)
+- [ ] Update GitHub Documentation for AS3
 
 
 
