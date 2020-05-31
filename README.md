@@ -110,9 +110,10 @@ To Do:
    * Use new AMI IDs
    * Update Previous CF templates with the new AMI IDs
    * Provision: LTM, AVR, ASM, APM
-4. AVR
-5. Default ASM Profiles
-6. APM (when applicable)
+4. Improve Lidsa when not using (not to Err), and default value to e.g. "none" (like AS3 field)
+5. AVR
+6. Default ASM Profiles
+7. APM (when applicable)
 
 
 
