@@ -105,8 +105,8 @@ The diagram below depicts the Logical Network Diagram built by this CloudFormati
 
 To Do:
 - [x] Harden Windows
-- [ ] Update GitHub Documentation for Windows
-- [ ] Log Rotate LAMP
+- [x] Update GitHub Documentation for Windows
+- [x] Log Rotate LAMP
 - [x] Update GitHub Documentation for LAMP
 - [ ] Update CF:
    - [x] Use new AMI IDs
