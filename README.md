@@ -104,16 +104,16 @@ The diagram below depicts the Logical Network Diagram built by this CloudFormati
 ![Logical Network Diagram with Windows Server](Figures/LogicalNetworkDiagramWindows.png)
 
 To Do:
-1. Harden Windows
-2. Log Rotate LAMP
-3. Update CF:
-   * Use new AMI IDs
-   * Update Previous CF templates with the new AMI IDs
-   * Provision: LTM, AVR, ASM, APM
-4. Improve Lidsa when not using (not to Err), and default value to e.g. "none" (like AS3 field)
-5. AVR
-6. Default ASM Profiles
-7. APM (when applicable)
+- [ ] Harden Windows
+- [ ] Log Rotate LAMP
+- [ ] Update CF:
+   - [ ] Use new AMI IDs
+   - [ ] Update Previous CF templates with the new AMI IDs
+   - [ ] Provision: LTM, AVR, ASM, APM
+- [ ] Improve Lidsa when not using (not to Err), and default value to e.g. "none" (like AS3 field)
+- [ ] AVR
+- [ ] Default ASM Profiles
+- [ ] APM (when applicable)
 
 
 
