@@ -112,7 +112,9 @@ To Do:
    - [x] Use new AMI IDs
    - [ ] Update Previous CF templates with the new AMI IDs
    - [x] Provision: LTM, AVR, ASM, APM
-   - [ ] Update GitHub Documentation for the Above
+   - [ ] Create AS3 LTM Simple (No OutBound)
+   - [ ] Update existing AS3 with Pools from Windows Server
+   - [ ] Update Previous CF templates to use No OutBound versions of AS3 (and Update the corresponding Documentations)
 - [ ] Improve Lidsa when not using (not to Err), and default value to e.g. "none" (like AS3 field)
 - [ ] Update GitHub Documentation for Lidsa
 - [ ] AVR
