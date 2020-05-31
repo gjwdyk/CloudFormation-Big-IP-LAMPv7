@@ -113,7 +113,7 @@ To Do:
    - [ ] Update Previous CF templates with the new AMI IDs
    - [x] Provision: LTM, AVR, ASM, APM
    - [ ] Create AS3 LTM Simple (No OutBound)
-   - [ ] Update existing AS3 with Pools from Windows Server
+   - [ ] Update existing AS3 with Pools from Windows Server ??? (should we do this or not?)
    - [ ] Update Previous CF templates to use No OutBound versions of AS3 (and Update the corresponding Documentations)
    - [ ] Tidy-Up Time Zones of LAMP and Windows
    - [ ] Tidy-Up Floating IP on Internal VLAN and Default Gateway of LAMP and Windows (Test with OutBound AS3, browsing) ===> I don't think the concept of Floating IP works within AWS Environment. Perhaps this is something futile? (if 2 interfaces assigned same IP Address, will they be conflict?), if not assigned, will they run?
