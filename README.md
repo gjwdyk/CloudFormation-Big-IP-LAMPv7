@@ -107,9 +107,9 @@ To Do:
 1. Harden Windows
 2. Log Rotate LAMP
 3. Update CF:
- * Use new AMI IDs
- * Update Previous CF templates with the new AMI IDs
- * Provision: LTM, AVR, ASM, APM
+  * Use new AMI IDs
+  * Update Previous CF templates with the new AMI IDs
+  * Provision: LTM, AVR, ASM, APM
 4. AVR
 5. Default ASM Profiles
 6. APM (when applicable)
