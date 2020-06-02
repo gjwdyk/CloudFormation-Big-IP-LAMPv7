@@ -104,12 +104,12 @@ The diagram below depicts the Logical Network Diagram built by this CloudFormati
 ![Logical Network Diagram with Windows Server](Figures/LogicalNetworkDiagramWindows.png)
 
 To Do:
-- [x] Harden Windows
+- [ ] Harden Windows
 - [x] Update GitHub Documentation for Windows
-- [x] Log Rotate LAMP
+- [ ] Log Rotate LAMP
 - [x] Update GitHub Documentation for LAMP
 - [ ] Update CF:
-   - [x] Use new AMI IDs
+   - [ ] Use new AMI IDs
    - [ ] Update Previous CF templates with the new AMI IDs
    - [x] Provision: LTM, AVR, ASM, APM
    - [ ] Create AS3 LTM Simple (No OutBound)
