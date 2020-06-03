@@ -118,7 +118,7 @@ To Do:
    - [x] Tidy-Up Time Zones of LAMP and Windows
    - [x] Tidy-Up Floating IP on Internal VLAN and Default Gateway of LAMP and Windows (Test with OutBound AS3, browsing) ===> I don't think the concept of Floating IP works within AWS Environment. Perhaps this is something futile? (if 2 interfaces assigned same IP Address, will they be conflict?), if not assigned, will they run?
 - [x] Improve Lidsa when not using (not to Err), and default value to e.g. "none" (like AS3 field)
-- [ ] Update GitHub Documentation for Lidsa
+- [x] Update GitHub Documentation for Lidsa
 - [ ] AVR
 - [ ] Default ASM Profiles
 - [ ] APM (when applicable)

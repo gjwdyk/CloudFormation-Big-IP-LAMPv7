@@ -38,7 +38,7 @@
         },
         "LAMPServerImageID": {
             "Type": "AWS::EC2::Image::Id",
-            "Default": "ami-05e7d6a83e2ef28e0",
+            "Default": "ami-0df2622d7d4612d77",
             "Description": "Provide a valid AMI ID of LAMP Server in the AWS Region."
         },
         "LAMPServerInstanceType": {
