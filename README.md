@@ -106,10 +106,10 @@ The diagram below depicts the Logical Network Diagram built by this CloudFormati
 To Do:
 - [x] Harden Windows
 - [x] Update GitHub Documentation for Windows
-- [ ] Log Rotate LAMP
+- [x] Log Rotate LAMP
 - [x] Update GitHub Documentation for LAMP
 - [ ] Update CF:
-   - [ ] Use new AMI IDs
+   - [x] Use new AMI IDs
    - [ ] Update Previous CF templates with the new AMI IDs
    - [x] Provision: LTM, AVR, ASM, APM
    - [ ] Create AS3 LTM Simple (No OutBound)
@@ -117,7 +117,7 @@ To Do:
    - [ ] Update Previous CF templates to use No OutBound versions of AS3 (and Update the corresponding Documentations)
    - [x] Tidy-Up Time Zones of LAMP and Windows
    - [x] Tidy-Up Floating IP on Internal VLAN and Default Gateway of LAMP and Windows (Test with OutBound AS3, browsing) ===> I don't think the concept of Floating IP works within AWS Environment. Perhaps this is something futile? (if 2 interfaces assigned same IP Address, will they be conflict?), if not assigned, will they run?
-- [ ] Improve Lidsa when not using (not to Err), and default value to e.g. "none" (like AS3 field)
+- [x] Improve Lidsa when not using (not to Err), and default value to e.g. "none" (like AS3 field)
 - [ ] Update GitHub Documentation for Lidsa
 - [ ] AVR
 - [ ] Default ASM Profiles

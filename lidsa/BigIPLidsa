@@ -37,17 +37,25 @@ else
     /bin/tail -n +2 /config/lidsa/LoremIpsumDolorSitAmet > /config/lidsa/IpsumDolorSitAmet
     /bin/cp --force /config/lidsa/IpsumDolorSitAmet /config/lidsa/LoremIpsumDolorSitAmet
     /bin/rm --force /config/lidsa/IpsumDolorSitAmet
-    /usr/bin/f5-rest-node /config/cloud/aws/node_modules/@f5devcentral/f5-cloud-libs/scripts/onboard.js --signal ONBOARD_DONE -o /config/lidsa/cae/OnBoard.log --log-level silly --no-reboot --host localhost --hostname `curl -s -f --retry 20 http://169.254.169.254/latest/meta-data/hostname` --ntp `cat /config/lidsa/NTPServer` --tz `cat /config/lidsa/TimeZone` --dns `cat /config/lidsa/DNSServer` --modules `cat /config/lidsa/BigIPModules` --license `cat /config/lidsa/Lorem`
-    /bin/tmsh show sys license > /config/lidsa/cae/TMSHShowSysLicense
-    if ( grep -q -e `cat /config/lidsa/Lorem` /config/lidsa/cae/TMSHShowSysLicense ) && ( grep -q -e "Current state: ACTIVE" "$Detail_File" ) && ( grep -q -e "Device onboard complete" "$Detail_File" ) && ( grep -q -e "Sending signal ONBOARD_DONE" "$Detail_File" ) && ( grep -q -e "Onboard finished" "$Detail_File" ); then
-      /bin/sudo /bin/printf "Subject: Lidsa Success\n\n$Detail_File\n\n`/bin/tail --lines=$MailDetailLength $Detail_File`\n\n\n`/bin/cat /config/lidsa/cae/TMSHShowSysLicense`\n\n\n`/bin/date +%Y%m%d%H%M%S`\n`/bin/cat /config/BigIPUnitID`\n`/bin/curl http://169.254.169.254/latest/meta-data/public-hostname`\n\n\n" | /sbin/ssmtp -v "`/bin/cat /etc/ssmtp/eMailNotificationRecipient`"  >> "$Log_File"
-      /bin/sudo /bin/printf "`/bin/date +%Y%m%d%H%M%S` `/bin/cat /config/BigIPUnitID` `/bin/curl http://169.254.169.254/latest/meta-data/public-hostname` `/bin/cat /etc/ssmtp/eMailNotificationRecipient` $Flag_File Lidsa Success $Detail_File\n`/bin/tail --lines=$MailDetailLength $Detail_File`\n`/bin/cat /config/lidsa/cae/TMSHShowSysLicense`\n" >> "$Log_File"
-      /bin/printf "`cat /config/lidsa/Lorem`\n" >> /config/lidsa/Amet
-      /bin/rm --force /config/lidsa/Lorem
+    if [[ `cat /config/lidsa/Lorem` =~ ^[A-Z][A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]-[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]-[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]-[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]-[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]$ ]]; then
+      /bin/sudo /bin/printf "`/bin/date +%Y%m%d%H%M%S` : /config/lidsa/Lorem : `/bin/cat /config/lidsa/Lorem` match Regular Expression\n" >> "$Log_File"
+      /usr/bin/f5-rest-node /config/cloud/aws/node_modules/@f5devcentral/f5-cloud-libs/scripts/onboard.js --signal ONBOARD_DONE -o /config/lidsa/cae/OnBoard.log --log-level silly --no-reboot --host localhost --hostname `curl -s -f --retry 20 http://169.254.169.254/latest/meta-data/hostname` --ntp `cat /config/lidsa/NTPServer` --tz `cat /config/lidsa/TimeZone` --dns `cat /config/lidsa/DNSServer` --modules `cat /config/lidsa/BigIPModules` --license `cat /config/lidsa/Lorem`
+      /bin/tmsh show sys license > /config/lidsa/cae/TMSHShowSysLicense
+      if ( grep -q -e `cat /config/lidsa/Lorem` /config/lidsa/cae/TMSHShowSysLicense ) && ( grep -q -e "Current state: ACTIVE" "$Detail_File" ) && ( grep -q -e "Device onboard complete" "$Detail_File" ) && ( grep -q -e "Sending signal ONBOARD_DONE" "$Detail_File" ) && ( grep -q -e "Onboard finished" "$Detail_File" ); then
+        /bin/sudo /bin/printf "Subject: Lidsa Success\n\n$Detail_File\n\n`/bin/tail --lines=$MailDetailLength $Detail_File`\n\n\n`/bin/cat /config/lidsa/cae/TMSHShowSysLicense`\n\n\n`/bin/date +%Y%m%d%H%M%S`\n`/bin/cat /config/BigIPUnitID`\n`/bin/curl http://169.254.169.254/latest/meta-data/public-hostname`\n\n\n" | /sbin/ssmtp -v "`/bin/cat /etc/ssmtp/eMailNotificationRecipient`"  >> "$Log_File"
+        /bin/sudo /bin/printf "`/bin/date +%Y%m%d%H%M%S` `/bin/cat /config/BigIPUnitID` `/bin/curl http://169.254.169.254/latest/meta-data/public-hostname` `/bin/cat /etc/ssmtp/eMailNotificationRecipient` $Flag_File Lidsa Success $Detail_File\n`/bin/tail --lines=$MailDetailLength $Detail_File`\n`/bin/cat /config/lidsa/cae/TMSHShowSysLicense`\n" >> "$Log_File"
+      else
+        /bin/sudo /bin/touch "$Failed_Flag"
+        /bin/sudo /bin/printf "Subject: Lidsa Failed\n\n$Detail_File\n\n`/bin/tail --lines=$MailDetailLength $Detail_File`\n\n\n`/bin/cat /config/lidsa/cae/TMSHShowSysLicense`\n\n\n`/bin/date +%Y%m%d%H%M%S`\n`/bin/cat /config/BigIPUnitID`\n`/bin/curl http://169.254.169.254/latest/meta-data/public-hostname`\n\n\n" | /sbin/ssmtp -v "`/bin/cat /etc/ssmtp/eMailNotificationRecipient`"  >> "$Log_File"
+        /bin/sudo /bin/printf "`/bin/date +%Y%m%d%H%M%S` `/bin/cat /config/BigIPUnitID` `/bin/curl http://169.254.169.254/latest/meta-data/public-hostname` `/bin/cat /etc/ssmtp/eMailNotificationRecipient` $Flag_File Lidsa Failed $Detail_File\n`/bin/tail --lines=$MailDetailLength $Detail_File`\n`/bin/cat /config/lidsa/cae/TMSHShowSysLicense`\n" >> "$Log_File"
+      fi
     else
+      /bin/sudo /bin/printf "`/bin/date +%Y%m%d%H%M%S` : /config/lidsa/Lorem : `/bin/cat /config/lidsa/Lorem` does NOT match Regular Expression\n" >> "$Log_File"
       /bin/sudo /bin/touch "$Failed_Flag"
-      /bin/sudo /bin/printf "Subject: Lidsa Failed\n\n$Detail_File\n\n`/bin/tail --lines=$MailDetailLength $Detail_File`\n\n\n`/bin/cat /config/lidsa/cae/TMSHShowSysLicense`\n\n\n`/bin/date +%Y%m%d%H%M%S`\n`/bin/cat /config/BigIPUnitID`\n`/bin/curl http://169.254.169.254/latest/meta-data/public-hostname`\n\n\n" | /sbin/ssmtp -v "`/bin/cat /etc/ssmtp/eMailNotificationRecipient`"  >> "$Log_File"
-      /bin/sudo /bin/printf "`/bin/date +%Y%m%d%H%M%S` `/bin/cat /config/BigIPUnitID` `/bin/curl http://169.254.169.254/latest/meta-data/public-hostname` `/bin/cat /etc/ssmtp/eMailNotificationRecipient` $Flag_File Lidsa Failed $Detail_File\n`/bin/tail --lines=$MailDetailLength $Detail_File`\n`/bin/cat /config/lidsa/cae/TMSHShowSysLicense`\n" >> "$Log_File"
+      /bin/sudo /bin/printf "Subject: Lidsa Failed\n\n/config/lidsa/Lorem : `/bin/cat /config/lidsa/Lorem` does NOT match Regular Expression\n\n\n`/bin/date +%Y%m%d%H%M%S`\n`/bin/cat /config/BigIPUnitID`\n`/bin/curl http://169.254.169.254/latest/meta-data/public-hostname`\n\n\n" | /sbin/ssmtp -v "`/bin/cat /etc/ssmtp/eMailNotificationRecipient`"  >> "$Log_File"
+      /bin/sudo /bin/printf "`/bin/date +%Y%m%d%H%M%S` `/bin/cat /config/BigIPUnitID` `/bin/curl http://169.254.169.254/latest/meta-data/public-hostname` `/bin/cat /etc/ssmtp/eMailNotificationRecipient` $Flag_File Lidsa Failed /config/lidsa/Lorem : `/bin/cat /config/lidsa/Lorem` does NOT match Regular Expression\n" >> "$Log_File"
     fi
+    /bin/printf "`cat /config/lidsa/Lorem`\n" >> /config/lidsa/Amet
+    /bin/rm --force /config/lidsa/Lorem
   fi
 fi
