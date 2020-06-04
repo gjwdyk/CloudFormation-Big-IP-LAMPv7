@@ -20,11 +20,11 @@ Only the correct AMI ID of Big-IP within the targeted AWS Region is needed, whic
 Just a note that this CloudFormation template were tested with Big-IP version 15.0.1 build 0.0.11.
 You will also need a valid F5 Big-IP License to execute this template.
 
-This CloudFormation template is design for building Demo/Testing environment only. It was NOT designed to be used for Live/Commercial environment!
+This CloudFormation template is designed for building Demo/Testing environment only. It was NOT designed to be used for Live/Commercial environment!
 
 The whole template require around 30 minutes to fully completed. Although the CloudFormation stack itself stated it has completed, the instances themselves need much more time to self-configure.
 
-The diagram below depicts the Logical Network Diagram built by this CloudFormation template.
+The diagram below depicts the Logical Network Diagram built by the following CloudFormation templates.
 ![Logical Network Diagram](Figures/LogicalNetworkDiagram.png)
 
 The output part of the CloudFormation template is only 100% valid in the case of AS3 Declaration URL is using the default value.
@@ -114,7 +114,7 @@ provided the replacement AS3 Declaration fits into the Big-IP environment provid
 
 
 
-Below onward Windows Server 2008 are added into the CF template, as well as a few changes done to the LAMPv7 image (may affect the previous/above CF templates).
+Below onward Windows Server 2008 is added into the CF template, as well as a few changes done to the LAMPv7 image (which may affect the previous/above CF templates).
 
 The same as previous, the Windows Server VM is only imported to AWS Region Singapore (ap-southeast-1), therefore the CF template works only in AWS Region Singapore (ap-southeast-1).
 To make this template works in any other AWS Regions, the adapted LAMPv7 AMI and the adapted Windows Server AMI must exist in the targeted region and be accessible by the targeted account, before the execution of this template.
@@ -127,11 +127,11 @@ Only the correct AMI ID of Big-IP within the targeted AWS Region is needed, whic
 Just a note that this CloudFormation template were tested with Big-IP version 15.0.1 build 0.0.11.
 You will also need a valid F5 Big-IP License to execute this template.
 
-This CloudFormation template is design for building Demo/Testing environment only. It was NOT designed to be used for Live/Commercial environment!
+This CloudFormation template is designed for building Demo/Testing environment only. It was NOT designed to be used for Live/Commercial environment!
 
 The whole template require around 30 minutes to fully completed. Although the CloudFormation stack itself stated it has completed, the instances themselves need much more time to self-configure.
 
-The diagram below depicts the Logical Network Diagram built by the following CloudFormation template.
+The diagram below depicts the Logical Network Diagram built by the following CloudFormation template(s).
 ![Logical Network Diagram with Windows Server](Figures/LogicalNetworkDiagramWindows.png)
 
 The output part of the CloudFormation template is only 100% valid in the case of AS3 Declaration URL is using the default value.
