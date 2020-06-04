@@ -110,7 +110,7 @@ To Do:
 - [x] Update GitHub Documentation for LAMP
 - [ ] Update CF:
    - [x] Use new AMI IDs
-   - [ ] Update Previous CF templates with the new AMI IDs
+   - [x] Update Previous CF templates with the new AMI IDs
    - [x] Provision: LTM, AVR, ASM, APM
    - [ ] Create AS3 LTM Simple (No OutBound)
    - [ ] Update existing AS3 with Pools from Windows Server ??? (should we do this or not?)
