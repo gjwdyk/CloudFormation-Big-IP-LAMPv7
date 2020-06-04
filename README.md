@@ -151,7 +151,7 @@ The [CF_BigIP_LAMP_Win_SSLOffL_eMail_Lidsa.json](CF_BigIP_LAMP_Win_SSLOffL_eMail
 3. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
 4. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
 5. Configure SSMTP and user_alert.conf to send email notification in case of an event. The example works with GMail's SMTP, and sending notification when a pool has no available member, and when the pool back to having a member available to handle the traffic.
-6. Additional Lorem Ipsum Dolor Sit Amet mock-up field.
+6. Lorem Ipsum Dolor Sit Amet mock-up field.
 
 Default AS3 Declaration for [CF_BigIP_LAMP_Win_SSLOffL_eMail_Lidsa.json](CF_BigIP_LAMP_Win_SSLOffL_eMail_Lidsa.json) is [AS3-LTM-SSLOffLoad-NoOutBound](AS3-LTM-SSLOffLoad-NoOutBound/), but can be changed during the CloudFormation template deployment,
 provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CF_BigIP_LAMP_Win_SSLOffL_eMail_Lidsa.json](CF_BigIP_LAMP_Win_SSLOffL_eMail_Lidsa.json) template.
@@ -170,7 +170,7 @@ The [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json](CF_BigIP_LAMP_Win_SSLoL_eM
 3. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
 4. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
 5. Configure SSMTP and user_alert.conf to send email notification in case of an event. The example works with GMail's SMTP, and sending notification when a pool has no available member, and when the pool back to having a member available to handle the traffic.
-6. Additional Lorem Ipsum Dolor Sit Amet mock-up field.
+6. Lorem Ipsum Dolor Sit Amet mock-up field.
 7. Upgrade the F5 Application Services 3 Extension from previous version 3.5.1-5 into version 3.20.0-3 .
 
 Default AS3 Declaration for [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json](CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json) is [AS3-LTM-SSLoL-AVR-NOutB](AS3-LTM-SSLoL-AVR-NOutB/), but can be changed during the CloudFormation template deployment,
