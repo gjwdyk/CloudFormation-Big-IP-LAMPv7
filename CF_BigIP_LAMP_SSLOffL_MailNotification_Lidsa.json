@@ -125,7 +125,8 @@
         "Lidsa": {
             "Type": "String",
             "NoEcho": "true",
-            "Description": "Lorem Ipsum Dolor Sit Amet string. Proposed format are Lorem\\nIpsum\\nDolor\\nSit\\nAmet."
+            "Default": "Lidsa",
+            "Description": "Lorem Ipsum Dolor Sit Amet string. Proposed format are Lorem\\nIpsum\\nDolor\\nSit\\nAmet. Leave the field as it is for default."
         }
     },
     "Metadata": {

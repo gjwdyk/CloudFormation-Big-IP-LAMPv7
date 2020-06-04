@@ -50,6 +50,16 @@
       "Default": "t2.medium",
       "Description": "Provide a valid Instance Type for the LAMP Server."
     },
+    "WindowsServerImageID" : {
+      "Type": "AWS::EC2::Image::Id",
+      "Default": "ami-0eab3f51c4d3dd225",
+      "Description": "Provide a valid AMI ID of Windows Server in the AWS Region."
+    },
+    "WindowsServerInstanceType" : {
+      "Type": "String",
+      "Default": "t2.medium",
+      "Description": "Provide a valid Instance Type for the Windows Server."
+    },
     "EC2SSHKeyPair": {
       "Type": "AWS::EC2::KeyPair::KeyName",
       "Description": "EC2 KeyPair to enable SSH access to the EC2 instances, including the Big-IP. Select the SSH KeyPair you have access to."
@@ -75,8 +85,8 @@
     },
     "BigIPModules" : {
       "Type": "String",
-      "Default": "ltm:nominal",
-      "Description": "Comma separated list of modules and levels to provision, for example: ltm:nominal,asm:nominal,gtm:nominal . Provisionable modules are: afm, am, apm, asm, avr, cgnat, dos, fps, gtm, ilx, lc, ltm, pem, sslo, swg, urldb ."
+      "Default": "ltm:nominal,avr:nominal,asm:nominal,apm:nominal",
+      "Description": "Comma separated list of modules and levels to provision, for example: ltm:nominal,avr:nominal,asm:nominal,apm:nominal . Provisionable modules are: afm, am, apm, asm, avr, cgnat, dos, fps, gtm, ilx, lc, ltm, pem, sslo, swg, urldb ."
     },
     "BigIPTrafficTLSKey" : {
       "Type": "String",
@@ -92,7 +102,7 @@
     },
     "AS3URL" : {
       "Type": "String",
-      "Default": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/AS3-LTM-SSLOffLoad/AS3_LTM_SSLOffLoad.json",
+      "Default": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/AS3-LTM-SSLOffLoad-NoOutBound/AS3_LTM_SSLOffLoad_NoOutBound.json",
       "AllowedPattern": "^(http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$|^none$",
       "Description": "URL for the AS3 declaration JSON file to be deployed. Input *none* (without the *) to deploy without a service configuration."
     },
@@ -159,6 +169,8 @@
        "BigIPInstanceType",
        "LAMPServerImageID",
        "LAMPServerInstanceType",
+       "WindowsServerImageID",
+       "WindowsServerInstanceType",
        "EC2SSHKeyPair",
        "NTPServer",
        "TimeZone"
@@ -218,6 +230,12 @@
      },
      "LAMPServerInstanceType": {
       "default": "LAMP Server Instance Type"
+     },
+     "WindowsServerImageID": {
+      "default": "Windows Server Image ID"
+     },
+     "WindowsServerInstanceType": {
+      "default": "Windows Server Instance Type"
      },
      "EC2SSHKeyPair": {
       "default": "EC2 SSH Key-Pair"
@@ -562,6 +580,7 @@
         }
       }
     },
+
     "PublicManagementNetworkAcL": {
       "Type": "AWS::EC2::NetworkAcl",
       "Properties": {
@@ -621,6 +640,7 @@
         }
       }
     },
+
     "PublicTrafficNetworkAcL": {
       "Type": "AWS::EC2::NetworkAcl",
       "Properties": {
@@ -748,6 +768,7 @@
         }
       }
     },
+
     "PrivateControlNetworkAcL": {
       "Type": "AWS::EC2::NetworkAcl",
       "Properties": {
@@ -875,6 +896,7 @@
         }
       }
     },
+
     "PrivateTrafficNetworkAcL": {
       "Type": "AWS::EC2::NetworkAcl",
       "Properties": {
@@ -1346,6 +1368,65 @@
       }
     },
 
+    "WindowsServerTrafficSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Traffic Security Group for Windows Server",
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "SecurityGroupEgress": [
+          {
+            "IpProtocol": "-1",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ],
+        "SecurityGroupIngress" : [
+          {
+            "IpProtocol": "-1",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": { "Fn::Join" : [ "_", [ { "Ref": "TagPreFix" }, { "Ref": "AWS::StackName" }, "WindowsServerTrafficSecurityGroup" ] ] }
+          }
+        ]
+      }
+    },
+    "WindowsServerManagementSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Management Security Group for Windows Server",
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "SecurityGroupEgress": [
+          {
+            "IpProtocol": "-1",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ],
+        "SecurityGroupIngress" : [
+          {
+            "IpProtocol": "tcp",
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "3389",
+            "ToPort": "3389"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": { "Fn::Join" : [ "_", [ { "Ref": "TagPreFix" }, { "Ref": "AWS::StackName" }, "WindowsServerManagementSecurityGroup" ] ] }
+          }
+        ]
+      }
+    },
+
+
+
     "SelfEIP" : {
       "Type" : "AWS::EC2::EIP",
       "Properties" : {
@@ -1403,6 +1484,18 @@
           {
             "Key": "Name",
             "Value": { "Fn::Join" : [ "_", [ { "Ref": "TagPreFix" }, { "Ref": "AWS::StackName" }, "ServerEIP" ] ] }
+          }
+        ]
+      }
+    },
+    "WindowsServerEIP" : {
+      "Type" : "AWS::EC2::EIP",
+      "Properties" : {
+        "Domain" : "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": { "Fn::Join" : [ "_", [ { "Ref": "TagPreFix" }, { "Ref": "AWS::StackName" }, "WindowsServerEIP" ] ] }
           }
         ]
       }
@@ -1561,6 +1654,66 @@
       }
     },
 
+    "WindowsServerTrafficNetworkInterface" : {
+      "Type" : "AWS::EC2::NetworkInterface",
+      "Properties" : {
+        "Description" : "Network Interface for Windows Server Traffic VLAN",
+        "GroupSet" : [ {"Ref" : "WindowsServerTrafficSecurityGroup"} ],
+        "SourceDestCheck" : "false",
+        "SubnetId" : { "Ref" : "PrivateTrafficSubnet" },
+        "PrivateIpAddresses" : [
+          {
+            "Primary" : "true",
+            "PrivateIpAddress" : "10.1.20.251"
+          },
+          {
+            "Primary" : "false",
+            "PrivateIpAddress" : "10.1.20.32"
+          },
+          {
+            "Primary" : "false",
+            "PrivateIpAddress" : "10.1.20.41"
+          },
+          {
+            "Primary" : "false",
+            "PrivateIpAddress" : "10.1.20.42"
+          },
+          {
+            "Primary" : "false",
+            "PrivateIpAddress" : "10.1.20.43"
+          },
+          {
+            "Primary" : "false",
+            "PrivateIpAddress" : "10.1.20.44"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": { "Fn::Join" : [ "_", [ { "Ref": "TagPreFix" }, { "Ref": "AWS::StackName" }, "WindowsServerTrafficNetworkInterface" ] ] }
+          }
+        ]
+      }
+    },
+    "WindowsServerManagementNetworkInterface" : {
+      "Type" : "AWS::EC2::NetworkInterface",
+      "Properties" : {
+        "Description" : "Network Interface for Windows Server Management VLAN",
+        "GroupSet" : [ {"Ref" : "WindowsServerManagementSecurityGroup"} ],
+        "SourceDestCheck" : "false",
+        "SubnetId" : { "Ref" : "PublicManagementSubnet" },
+        "PrivateIpAddress" : "10.1.1.251",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": { "Fn::Join" : [ "_", [ { "Ref": "TagPreFix" }, { "Ref": "AWS::StackName" }, "WindowsServerManagementNetworkInterface" ] ] }
+          }
+        ]
+      }
+    },
+
+
+
     "StaticWebServerEIPAssociation" : {
       "Type" : "AWS::EC2::EIPAssociation",
       "Properties" : {
@@ -1608,6 +1761,13 @@
         "NetworkInterfaceId" : { "Ref" : "ServerManagementNetworkInterface" }
       }
     },
+    "WindowsServerEIPAssociation" : {
+      "Type" : "AWS::EC2::EIPAssociation",
+      "Properties" : {
+        "AllocationId" : { "Fn::GetAtt" : [ "WindowsServerEIP", "AllocationId" ] },
+        "NetworkInterfaceId" : { "Ref" : "WindowsServerManagementNetworkInterface" }
+      }
+    },
 
 
 
@@ -1632,6 +1792,25 @@
           "sudo mv /etc/network/vmimport.interfaces /etc/network/interfaces", "\n",
           "sudo touch /etc/network/UserData`date +%Y%m%d%H%M%S`.Access", "\n"
         ]]}}
+      }
+    },
+
+
+
+    "WindowsServer" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "ImageId" : { "Ref": "WindowsServerImageID" },
+        "InstanceType" : { "Ref": "WindowsServerInstanceType" },
+        "NetworkInterfaces" : [ { "NetworkInterfaceId" : {"Ref" : "WindowsServerTrafficNetworkInterface"}, "DeviceIndex" : "0" },
+                                { "NetworkInterfaceId" : {"Ref" : "WindowsServerManagementNetworkInterface"}, "DeviceIndex" : "1" } ],
+        "KeyName" : { "Ref": "EC2SSHKeyPair" },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": { "Fn::Join" : [ "_", [ { "Ref": "TagPreFix" }, { "Ref": "AWS::StackName" }, "WindowsServer" ] ] }
+          }
+        ]
       }
     },
 
@@ -2343,6 +2522,10 @@
     "LAMPServerManagementIPAddress" : {
       "Description" : "LAMP Server's Management IP Address",
       "Value" : { "Ref" : "ServerEIP" }
+    },
+    "WindowsServerManagementIPAddress" : {
+      "Description" : "Windows Server's Management IP Address",
+      "Value" : { "Ref" : "WindowsServerEIP" }
     },
     "BigIPManagementIPAddress" : {
       "Description" : "Big-IP's Management IP Address",
