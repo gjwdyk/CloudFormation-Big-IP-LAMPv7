@@ -162,6 +162,26 @@ provided the replacement AS3 Declaration fits into the Big-IP environment provid
 
 ***
 
+<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=BigIP_LAMP_Win&templateURL=https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/CF/CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20_Original.json"><img align="right" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></a>
+
+The [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json](CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json) template creates:
+1. One F5's LAMPv7 instance which had been adapted to AWS environment in certain extend.
+2. One F5's Windows Server 2008 R2 instance which had been adapted to AWS environment in certain extend.
+3. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
+4. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
+5. Configure SSMTP and user_alert.conf to send email notification in case of an event. The example works with GMail's SMTP, and sending notification when a pool has no available member, and when the pool back to having a member available to handle the traffic.
+6. Additional Lorem Ipsum Dolor Sit Amet mock-up field.
+7. Upgrade the F5 Application Services 3 Extension from previous version 3.5.1-5 into version 3.20.0-3 .
+
+Default AS3 Declaration for [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json](CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json) is [AS3-LTM-SSLoL-AVR-NOutB](AS3-LTM-SSLoL-AVR-NOutB/), but can be changed during the CloudFormation template deployment,
+provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json](CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json) template.
+
+<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=BigIP_LAMP_Win&templateURL=https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/CF/CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></a>
+
+
+
+***
+
 
 
 To Do:
@@ -173,14 +193,14 @@ To Do:
    - [x] Use new AMI IDs
    - [x] Update Previous CF templates with the new AMI IDs
    - [x] Provision: LTM, AVR, ASM, APM
-   - [ ] Create AS3 LTM Simple (No OutBound)
+   - [x] Create AS3 LTM Simple (No OutBound)
    - [ ] Update existing AS3 with Pools from Windows Server ??? (should we do this or not?)
    - [ ] Update Previous CF templates to use No OutBound versions of AS3 (and Update the corresponding Documentations)
    - [x] Tidy-Up Time Zones of LAMP and Windows
    - [x] Tidy-Up Floating IP on Internal VLAN and Default Gateway of LAMP and Windows (Test with OutBound AS3, browsing) ===> I don't think the concept of Floating IP works within AWS Environment. Perhaps this is something futile? (if 2 interfaces assigned same IP Address, will they be conflict?), if not assigned, will they run?
 - [x] Improve Lidsa when not using (not to Err), and default value to e.g. "none" (like AS3 field)
 - [x] Update GitHub Documentation for Lidsa
-- [ ] AVR
+- [x] AVR
 - [ ] Default ASM Profiles
 - [ ] APM (when applicable)
 - [ ] Update GitHub Documentation for AS3
