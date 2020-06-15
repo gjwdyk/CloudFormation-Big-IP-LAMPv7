@@ -171,7 +171,7 @@ The [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json](CF_BigIP_LAMP_Win_SSLoL_eM
 4. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
 5. Configure SSMTP and user_alert.conf to send email notification in case of an event. The example works with GMail's SMTP, and sending notification when a pool has no available member, and when the pool back to having a member available to handle the traffic.
 6. Lorem Ipsum Dolor Sit Amet mock-up field.
-7. Upgrade the F5 Application Services 3 Extension from previous version 3.5.1-5 into version 3.20.0-3 .
+7. Upgrade F5 Application Services 3 Extension from previous version 3.5.1-5 into version 3.20.0-3 .
 
 Default AS3 Declaration for [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json](CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json) is [AS3-LTM-SSLoL-AVR-NOutB](AS3-LTM-SSLoL-AVR-NOutB/), but can be changed during the CloudFormation template deployment,
 provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json](CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json) template.
@@ -186,15 +186,12 @@ provided the replacement AS3 Declaration fits into the Big-IP environment provid
 
 To Do:
 
-- [ ] Update AS3:
-   - [ ] Update existing AS3 with Pools from Windows Server ??? (should we do this or not?)
-   - [ ] Update Previous CF templates to use No OutBound versions of AS3 (and Update the corresponding Documentations)
-   - [ ] tmsh modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true
-   - [x] Tidy-Up Floating IP on Internal VLAN and Default Gateway of LAMP and Windows (Test with OutBound AS3, browsing) ===> I don't think the concept of Floating IP works within AWS Environment. Perhaps this is something futile? (if 2 interfaces assigned same IP Address, will they be conflict?), if not assigned, will they run?
-- [x] AVR
+- [ ] Update existing AS3 with Pools from Windows Server ??? (should we do this or not?)
+- [ ] Update Previous CF templates to use No OutBound versions of AS3 (and Update the corresponding Documentations)
+- [ ] tmsh modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true
+- [ ] Test Concept of Floating IP for High Availability. If 2 interfaces assigned same IP Address, will they be conflict? If not assigned, will they work?
 - [ ] Default ASM Profiles
 - [ ] APM (when applicable)
-- [ ] Update GitHub Documentation for AS3
 
 
 
