@@ -699,7 +699,7 @@
         "optimisticLockKey": ""
     },
     "class": "ADC",
-    "schemaVersion": "3.5.0",
+    "schemaVersion": "3.20.0",
     "id": "Sample-LTM-Declaration-for-LAMPv7",
     "label": "Sample LTM Declaration for LAMPv7",
     "remark": "Simple HTTP Virtual Servers with Round Robin Pool",
