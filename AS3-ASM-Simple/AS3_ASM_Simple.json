@@ -1,0 +1,647 @@
+{
+  "class": "AS3",
+  "action": "deploy",
+  "persist": true,
+  "declaration": {
+    "class": "ADC",
+    "schemaVersion": "3.20.0",
+    "controls": {
+      "class": "Controls",
+      "trace": true,
+      "logLevel": "debug",
+      "traceResponse": true
+    },
+    "id": "Sample_AS3_Declaration_ID",
+    "label": "Sample AS3 Declaration Label",
+    "remark": "Sample AS3 Declaration Remark",
+    "Tenant_Class": {
+      "class": "Tenant",
+      "defaultRouteDomain": 0,
+      "Application_Class": {
+        "class": "Application",
+        "template": "https",
+
+        "serviceMain": {
+          "class": "Service_HTTPS",
+          "allowVlans": [ "external" ],
+          "virtualAddresses": [
+            "10.1.10.241"
+          ],
+          "serverTLS": "ServiceHTTPS_TLSServer",
+          "pool": "ServerHTTP_Pool",
+          "policyWAF": { "use": "Comprehensive_ASM_Policy" },
+          "securityLogProfiles": [ { "use": "Local_Security_Log_Profile" } ],
+          "profileAnalytics": { "use": "HTTP_Analytics_Profile" },
+          "profileAnalyticsTcp": { "use": "TCP_Analytics_Profile" }
+        },
+        "ServerHTTP_Pool": {
+          "class": "Pool",
+          "monitors": [
+            { "use": "HTTP_Monitor" }
+          ],
+          "members": [
+            {
+              "servicePort": 80,
+              "serverAddresses": [
+                "10.1.20.252"
+              ]
+            }
+          ]
+        },
+        "SSH_Service_TCP": {
+          "class": "Service_TCP",
+          "virtualAddresses": [
+            "10.1.10.241"
+          ],
+          "virtualPort": 22,
+          "allowVlans": [ "external" ],
+          "pool": "ServerSSH_Pool",
+          "profileAnalyticsTcp": { "use": "TCP_Analytics_Profile" }
+        },
+        "ServerSSH_Pool": {
+          "class": "Pool",
+          "monitors": [
+            { "use": "TCPHalfOpen_Monitor" }
+          ],
+          "members": [
+            {
+              "servicePort": 22,
+              "serverAddresses": [
+                "10.1.20.252"
+              ]
+            }
+          ]
+        },
+        "VNC_Service_TCP": {
+          "class": "Service_TCP",
+          "virtualAddresses": [
+            "10.1.10.241"
+          ],
+          "virtualPort": 5900,
+          "allowVlans": [ "external" ],
+          "pool": "ServerVNC_Pool",
+          "profileAnalyticsTcp": { "use": "TCP_Analytics_Profile" }
+        },
+        "ServerVNC_Pool": {
+          "class": "Pool",
+          "monitors": [
+            { "use": "TCPHalfOpen_Monitor" }
+          ],
+          "members": [
+            {
+              "servicePort": 5900,
+              "serverAddresses": [
+                "10.1.20.252"
+              ]
+            }
+          ]
+        },
+
+        "StaticWeb_Service_HTTPS": {
+          "class": "Service_HTTPS",
+          "allowVlans": [ "external" ],
+          "virtualAddresses": [
+            "10.1.10.240"
+          ],
+          "serverTLS": "ServiceHTTPS_TLSServer",
+          "persistenceMethods": [],
+          "pool": "StaticWebServers_Pool",
+          "policyWAF": { "use": "Comprehensive_ASM_Policy" },
+          "securityLogProfiles": [ { "use": "Local_Security_Log_Profile" } ],
+          "profileAnalytics": { "use": "HTTP_Analytics_Profile" },
+          "profileAnalyticsTcp": { "use": "TCP_Analytics_Profile" }
+        },
+        "StaticWebServers_Pool": {
+          "class": "Pool",
+          "monitors": [
+            { "use": "HTTP_Monitor" }
+          ],
+          "members": [
+            {
+              "servicePort": 80,
+              "serverAddresses": [
+                "10.1.20.11",
+                "10.1.20.12",
+                "10.1.20.13"
+              ]
+            }
+          ]
+        },
+
+        "DVWA_Service_HTTPS": {
+          "class": "Service_HTTPS",
+          "allowVlans": [ "external" ],
+          "virtualAddresses": [
+            "10.1.10.242"
+          ],
+          "serverTLS": "ServiceHTTPS_TLSServer",
+          "pool": "DVWA_Pool",
+          "policyWAF": { "use": "Comprehensive_ASM_Policy" },
+          "securityLogProfiles": [ { "use": "Local_Security_Log_Profile" } ],
+          "profileAnalytics": { "use": "HTTP_Analytics_Profile" },
+          "profileAnalyticsTcp": { "use": "TCP_Analytics_Profile" }
+        },
+        "DVWA_Pool": {
+          "class": "Pool",
+          "monitors": [
+            { "use": "HTTP_Monitor" }
+          ],
+          "members": [
+            {
+              "servicePort": 80,
+              "serverAddresses": [
+                "10.1.20.17"
+              ]
+            }
+          ]
+        },
+
+        "Hackazon_Service_HTTPS": {
+          "class": "Service_HTTPS",
+          "allowVlans": [ "external" ],
+          "virtualAddresses": [
+            "10.1.10.243"
+          ],
+          "serverTLS": "ServiceHTTPS_TLSServer",
+          "pool": "Hackazon_Pool",
+          "policyWAF": { "use": "Comprehensive_ASM_Policy" },
+          "securityLogProfiles": [ { "use": "Local_Security_Log_Profile" } ],
+          "profileAnalytics": { "use": "HTTP_Analytics_Profile" },
+          "profileAnalyticsTcp": { "use": "TCP_Analytics_Profile" }
+        },
+        "Hackazon_Pool": {
+          "class": "Pool",
+          "monitors": [
+            { "use": "HTTP_Monitor" }
+          ],
+          "members": [
+            {
+              "servicePort": 80,
+              "serverAddresses": [
+                "10.1.20.20"
+              ]
+            }
+          ]
+        },
+
+        "ActiveDirectory_Pool": {
+          "class": "Pool",
+          "monitors": [
+            { "use": "TCPHalfOpen_Monitor" }
+          ],
+          "members": [
+            {
+              "servicePort": 88,
+              "serverAddresses": [
+                "10.1.20.251"
+              ]
+            }
+          ]
+        },
+        "LoraxWebServer_Pool": {
+          "class": "Pool",
+          "monitors": [
+            { "use": "HTTP_Monitor" }
+          ],
+          "members": [
+            {
+              "servicePort": 80,
+              "serverAddresses": [
+                "10.1.20.32"
+              ]
+            }
+          ]
+        },
+        "LoraxStaticWeb_Pool": {
+          "class": "Pool",
+          "monitors": [
+            { "use": "HTTP_Monitor" }
+          ],
+          "members": [
+            {
+              "servicePort": 80,
+              "serverAddresses": [
+                "10.1.20.41",
+                "10.1.20.42",
+                "10.1.20.43",
+                "10.1.20.44"
+              ]
+            }
+          ]
+        },
+
+        "InternetGateway_Pool": {
+          "class": "Pool",
+          "monitors": [
+            { "use": "ICMP_Gateway_8888_Monitor" },
+            { "use": "ICMP_Gateway_8844_Monitor" }
+          ],
+          "members": [
+            {
+              "servicePort": 0,
+              "serverAddresses": [
+                "10.1.10.1"
+              ]
+            }
+          ]
+        },
+
+        "ServiceHTTPS_TLSServer": {
+          "class": "TLS_Server",
+          "label": "TLS Profile for Clients to Connects to Big-IP",
+          "certificates": [
+            {
+              "certificate": "TLSServer_Certificate"
+            }
+          ]
+        },
+        "TLSServer_Certificate": {
+          "class": "Certificate",
+          "certificate": {"bigip":"/Common/HC-Imported-SSL-Certificate"},
+          "privateKey": {"bigip":"/Common/HC-Imported-SSL-Key"}
+        },
+
+        "HTTP_Monitor": {
+          "class": "Monitor",
+          "monitorType": "http"
+        },
+        "TCPHalfOpen_Monitor": {
+          "class": "Monitor",
+          "monitorType": "tcp-half-open"
+        },
+        "ICMP_Gateway_8888_Monitor": {
+          "class": "Monitor",
+          "monitorType": "icmp",
+          "transparent": true,
+          "targetAddress": "8.8.8.8"
+        },
+        "ICMP_Gateway_8844_Monitor": {
+          "class": "Monitor",
+          "monitorType": "icmp",
+          "transparent": true,
+          "targetAddress": "8.8.4.4"
+        },
+
+        "HTTP_Analytics_Profile": {
+          "class": "Analytics_Profile",
+          "remark": "HTTP Analytics Profile Remark",
+          "label": "HTTP Analytics Profile Label",
+          "capturedTrafficInternalLogging": true,
+          "collectedStatsInternalLogging": true,
+          "collectClientSideStatistics": true,
+          "collectGeo": true,
+          "collectIp": true,
+          "collectMaxTpsAndThroughput": true,
+          "collectMethod": true,
+          "collectOsAndBrowser": true,
+          "collectPageLoadTime": true,
+          "collectResponseCode": true,
+          "collectSubnet": true,
+          "collectUrl": true,
+          "collectUserAgent": true,
+          "collectUserSession": true,
+          "publishIruleStatistics": true,
+          "sessionCookieSecurity": "always-secure",
+          "sessionTimeoutMinutes": 10,
+          "captureFilter": {
+            "capturedProtocols": "all",
+            "capturedReadyForJsInjection": "disabled",
+            "dosActivity": "any",
+            "requestCapturedParts": "all",
+            "responseCapturedParts": "all"
+          }
+        },
+
+        "TCP_Analytics_Profile": {
+          "class": "Analytics_TCP_Profile",
+          "remark": "TCP Analytics Profile Remark",
+          "label": "TCP Analytics Profile Label",
+          "collectedStatsInternalLogging": true,
+          "collectCity": true,
+          "collectContinent": true,
+          "collectCountry": true,
+          "collectPostCode": true,
+          "collectRegion": true,
+          "collectedByClientSide": true,
+          "collectedByServerSide": true,
+          "collectNexthop": true,
+          "collectRemoteHostIp": true,
+          "collectRemoteHostSubnet": true
+        },
+
+        "Comprehensive_ASM_Policy": {
+          "class": "WAF_Policy",
+          "enforcementMode": "blocking",
+          "label": "Comprehensive ASM Policy Label",
+          "remark": "Comprehensive ASM Policy Remark",
+          "url": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/F5ASMPolicyTemplates/generic_ready_template/Comprehensive_Policy_13_1.xml",
+          "ignoreChanges": false
+        },
+        "Fundamental_ASM_Policy": {
+          "class": "WAF_Policy",
+          "enforcementMode": "blocking",
+          "label": "Fundamental ASM Policy Label",
+          "remark": "Fundamental ASM Policy Remark",
+          "url": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/F5ASMPolicyTemplates/generic_ready_template/Fundamental_Policy_13_1.xml",
+          "ignoreChanges": false
+        },
+        "Passive_Deployment_ASM_Policy": {
+          "class": "WAF_Policy",
+          "enforcementMode": "blocking",
+          "label": "Passive Deployment ASM Policy Label",
+          "remark": "Passive Deployment ASM Policy Remark",
+          "url": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/F5ASMPolicyTemplates/generic_ready_template/Passive_Deployment_Policy_13_1.xml",
+          "ignoreChanges": false
+        },
+        "Rapid_Deployment_ASM_Policy": {
+          "class": "WAF_Policy",
+          "enforcementMode": "blocking",
+          "label": "Rapid Deployment ASM Policy Label",
+          "remark": "Rapid Deployment ASM Policy Remark",
+          "url": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/F5ASMPolicyTemplates/generic_ready_template/Rapid_Deployment_Policy_13_1.xml",
+          "ignoreChanges": false
+        },
+        "Vulnerability_Assessment_Baseline_ASM_Policy": {
+          "class": "WAF_Policy",
+          "enforcementMode": "blocking",
+          "label": "Vulnerability Assessment Baseline ASM Policy Label",
+          "remark": "Vulnerability Assessment Baseline ASM Policy Remark",
+          "url": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/F5ASMPolicyTemplates/generic_ready_template/Vulnerability_Assessment_Baseline_Policy_13_1.xml",
+          "ignoreChanges": false
+        },
+        "OWASP_Auto_Tune_ASM_Policy": {
+          "class": "WAF_Policy",
+          "enforcementMode": "blocking",
+          "label": "OWASP Auto Tune ASM Policy Label",
+          "remark": "OWASP Auto Tune ASM Policy Remark",
+          "url": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/F5ASMPolicyTemplates/owasp_ready_template/owasp-auto-tune-v1.1.xml",
+          "ignoreChanges": false
+        },
+        "OWASP_Manual_Tune_ASM_Policy": {
+          "class": "WAF_Policy",
+          "enforcementMode": "blocking",
+          "label": "OWASP Manual Tune ASM Policy Label",
+          "remark": "OWASP Manual Tune ASM Policy Remark",
+          "url": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/F5ASMPolicyTemplates/owasp_ready_template/owasp-manual-tune-v1.1.xml",
+          "ignoreChanges": false
+        },
+        "OWASP_NoAuto_Tune_ASM_Policy": {
+          "class": "WAF_Policy",
+          "enforcementMode": "blocking",
+          "label": "OWASP NoAuto Tune ASM Policy Label",
+          "remark": "OWASP NoAuto Tune ASM Policy Remark",
+          "url": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/F5ASMPolicyTemplates/owasp_ready_template/owasp-no-auto-tune-v1.1.xml",
+          "ignoreChanges": false
+        },
+
+        "Local_Security_Log_Profile": {
+          "class": "Security_Log_Profile",
+          "label": "Local Security Log Profile Label",
+          "remark": "Local Security Log Profile Remark",
+          "application": {
+            "guaranteeLoggingEnabled": true,
+            "guaranteeResponseLoggingEnabled": true,
+        	"localStorage": true,
+            "maxHeaderSize": 2048,
+            "maxQuerySize": 2048,
+            "maxRequestSize": 2048,
+            "responseLogging": "all",
+            "storageFilter": {
+              "httpMethods": [ "ACL", "BDELETE", "BMOVE", "BPROPFIND", "BPROPPATCH", "CHECKIN", "CHECKOUT", "CONNECT", "COPY", "DELETE", "GET", "HEAD", "LINK", "LOCK", "MERGE", "MKCOL", "MKWORKSPACE", "MOVE", "NOTIFY", "OPTIONS", "PATCH", "POLL", "POST", "PROPFIND", "PROPPATCH", "PUT", "REPORT", "RPC_IN_DATA", "RPC_OUT_DATA", "SEARCH", "SUBSCRIBE", "TRACE", "TRACK", "UNLINK", "UNLOCK", "UNSUBSCRIBE", "VERSION_CONTROL", "X-MS-ENUMATTS" ],
+              "logicalOperation": "or",
+              "loginResults": [ "login-result-successful", "login-result-failed", "login-result-unknown" ],
+              "protocols": [ "http", "https", "ws", "wss" ],
+              "requestType": "all",
+              "responseCodes": [ "100", "101", "102", "200", "201", "202", "203", "204", "205", "206", "207", "300", "301", "302", "303", "304", "305", "306", "307", "400", "401", "402", "403", "404", "405", "406", "407", "408", "409", "410", "411", "412", "413", "414", "415", "416", "417", "422", "423", "424", "500", "501", "502", "503", "504", "505", "507", "510" ]
+            }
+          }
+        },
+
+
+
+
+
+
+
+
+
+        "DDoS_Profile": {
+          "class": "DOS_Profile",
+          "label": "DDoS Profile Label",
+          "remark": "DDoS Profile Remark",
+          "application": {
+            "blacklistedGeolocations": [ "Afghanistan", "Aland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Asia/Pacific Region", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bonaire, Saint Eustatius and Saba", "Bosnia and Herzegovina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, The Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote D'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Europe", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "France, Metropolitan", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard Island and McDonald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Iran, Islamic Republic of", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, Democratic People's Republic of", "Korea, Republic of", "Kuwait", "Kyrgyzstan", "Lao People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova, Republic of", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Palestinian Territory", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn Islands", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Barthelemy", "Saint Helena", "Saint Kitts and Nevis", "Saint Lucia", "Saint Martin", "Saint Pierre and Miquelon", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "Spain", "Sri Lanka", "Sudan", "Suriname", "Svalbard and Jan Mayen", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan", "Tajikistan", "Tanzania, United Republic of", "Thailand", "Timor-Leste", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Unknown", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Virgin Islands, British", "Virgin Islands, U.S.", "Wallis and Futuna", "Western Sahara", "Yemen", "Zambia", "Zimbabwe" ],
+            "whitelistedGeolocations": [ "Indonesia", "Singapore" ],
+            "triggerIRule": true,
+            "singlePageApplicationEnabled": true,
+            "captchaResponse": {
+              "first": "Why am I seeing this &quest;<br>This question is for testing whether you are a human visitor and to prevent automated spam submission.<br><br><br>%DOSL7.captcha.image% %DOSL7.captcha.change%<br><b>What code is in the image&quest;</b>%DOSL7.captcha.solution%<br>%DOSL7.captcha.submit%<br><br><br>If you believe there is a mistake, you can contact the site administrator with your support ID : %DOSL7.captcha.support_id% .<br><br><br><a href=\"https://github.com/gjwdyk\"><img src=\"https://avatars2.githubusercontent.com/u/64021730?s=60&u=38ad342afd40c87065f2342632491c1b6e70778e&v=4\" width=\"60\" height=\"60\"/></a>",
+              "failure": "Error !<br>Your input was not correct. Shall we try again &quest;<br><br><br>%DOSL7.captcha.image% %DOSL7.captcha.change%<br><b>What code is in the image&quest;</b>%DOSL7.captcha.solution%<br>%DOSL7.captcha.submit%<br><br><br>Your support ID is : %DOSL7.captcha.support_id% .<br><br><br><a href=\"https://github.com/gjwdyk\"><img src=\"https://avatars2.githubusercontent.com/u/64021730?s=60&u=38ad342afd40c87065f2342632491c1b6e70778e&v=4\" width=\"60\" height=\"60\"/></a>"
+            },
+            "heavyURLProtection": {
+              "automaticDetectionEnabled": true,
+              "detectionThreshold": 16,
+              "excludeList": [ "/" ],
+              "protectList": [ {
+                "url": "/*",
+                "threshold": 0
+                }
+              ]
+            },
+            "botDefense": {
+              "mode": "always",
+              "blockSuspiscousBrowsers": true,
+              "issueCaptchaChallenge": true,
+              "gracePeriod": 333,
+              "crossDomainRequests": "validate-bulk",
+              "siteDomains": ["www.google.com"],
+              "externalDomains": ["www.yahoo.com"],
+              "urlWhitelist": ["www.bing.com"]
+            },
+            "botSignatures": {
+              "checkingEnabled": true,
+              "blockedCategories": [ {
+                "bigip": "/Common/Crawler",
+                "bigip": "/Common/DOS Tool",
+                "bigip": "/Common/E-Mail Collector",
+                "bigip": "/Common/Exploit Tool",
+                "bigip": "/Common/Headless Browser",
+                "bigip": "/Common/HTTP Library",
+                "bigip": "/Common/Mobile App without SDK",
+                "bigip": "/Common/Network Scanner",
+                "bigip": "/Common/RSS Reader",
+                "bigip": "/Common/Search Bot",
+                "bigip": "/Common/Service Agent",
+                "bigip": "/Common/Site Monitor",
+                "bigip": "/Common/Social Media Agent",
+                "bigip": "/Common/Spam Bot",
+                "bigip": "/Common/Spyware",
+                "bigip": "/Common/Vulnerability Scanner",
+                "bigip": "/Common/Web Downloader",
+                "bigip": "/Common/Web Spider",
+                "bigip": "/Common/Webserver Stress Tool"
+                }
+              ],
+              "reportedCategories": [ {
+                "bigip": "/Common/Search Engine"
+                }
+              ]
+            },
+            "rateBasedDetection": {
+              "operationMode": "blocking",
+              "thresholdsMode": "manual",
+              "escalationPeriod": 120,
+              "deEscalationPeriod": 7200,
+              "sourceIP": {
+                "minimumTps": 40,
+                "tpsIncreaseRate": 500,
+                "maximumTps": 200,
+                "minimumAutoTps": 5,
+                "maximumAutoTps": 5000,
+                "clientSideDefenseEnabled": false,
+                "captchaChallengeEnabled": false,
+                "rateLimitingEnabled": true,
+                "rateLimitingMode": "rate-limit"
+              },
+              "deviceID": {
+                "minimumTps": 40,
+                "tpsIncreaseRate": 500,
+                "maximumTps": 200,
+                "minimumAutoTps": 5,
+                "maximumAutoTps": 5000,
+                "clientSideDefenseEnabled": false,
+                "captchaChallengeEnabled": false,
+                "rateLimitingEnabled": true,
+                "rateLimitingMode": "rate-limit"
+              },
+              "geolocation": {
+                "minimumShare": 10,
+                "shareIncreaseRate": 500,
+                "minimumAutoTps": 5,
+                "maximumAutoTps": 5000,
+                "clientSideDefenseEnabled": false,
+                "captchaChallengeEnabled": false,
+                "rateLimitingEnabled": true,
+                "rateLimitingMode": "rate-limit"
+              },
+              "url": {
+                "minimumTps": 40,
+                "tpsIncreaseRate": 500,
+                "maximumTps": 200,
+                "minimumAutoTps": 5,
+                "maximumAutoTps": 5000,
+                "clientSideDefenseEnabled": false,
+                "captchaChallengeEnabled": false,
+                "rateLimitingEnabled": true
+              },
+              "site": {
+                "minimumTps": 40,
+                "tpsIncreaseRate": 500,
+                "maximumTps": 200,
+                "minimumAutoTps": 5,
+                "maximumAutoTps": 5000,
+                "clientSideDefenseEnabled": false,
+                "captchaChallengeEnabled": false,
+                "rateLimitingEnabled": true
+              }
+            },
+            "stressBasedDetection": {
+              "badActor": {
+                "detectionEnabled": false,
+                "mitigationMode": "none",
+                "signatureDetectionEnabled": false,
+                "useApprovedSignaturesOnly": false
+              },
+              "operationMode": "blocking",
+              "thresholdsMode": "manual",
+              "escalationPeriod": 120,
+              "deEscalationPeriod": 7200,
+              "sourceIP": {
+                "minimumTps": 40,
+                "tpsIncreaseRate": 500,
+                "maximumTps": 200,
+                "minimumAutoTps": 5,
+                "maximumAutoTps": 5000,
+                "clientSideDefenseEnabled": false,
+                "captchaChallengeEnabled": false,
+                "rateLimitingEnabled": true,
+                "rateLimitingMode": "rate-limit"
+              },
+              "deviceID": {
+                "minimumTps": 40,
+                "tpsIncreaseRate": 500,
+                "maximumTps": 200,
+                "minimumAutoTps": 5,
+                "maximumAutoTps": 5000,
+                "clientSideDefenseEnabled": false,
+                "captchaChallengeEnabled": false,
+                "rateLimitingEnabled": true,
+                "rateLimitingMode": "rate-limit"
+              },
+              "geolocation": {
+                "minimumShare": 10,
+                "shareIncreaseRate": 500,
+                "minimumAutoTps": 5,
+                "maximumAutoTps": 5000,
+                "clientSideDefenseEnabled": false,
+                "captchaChallengeEnabled": false,
+                "rateLimitingEnabled": true,
+                "rateLimitingMode": "rate-limit"
+              },
+              "url": {
+                "minimumTps": 40,
+                "tpsIncreaseRate": 500,
+                "maximumTps": 200,
+                "minimumAutoTps": 5,
+                "maximumAutoTps": 5000,
+                "clientSideDefenseEnabled": false,
+                "captchaChallengeEnabled": false,
+                "rateLimitingEnabled": true,
+                "heavyURLProtectionEnabled": true
+              },
+              "site": {
+                "minimumTps": 40,
+                "tpsIncreaseRate": 500,
+                "maximumTps": 200,
+                "minimumAutoTps": 5,
+                "maximumAutoTps": 5000,
+                "clientSideDefenseEnabled": false,
+                "captchaChallengeEnabled": false,
+                "rateLimitingEnabled": true
+              }
+            },
+            "recordTraffic": {
+              "maximumDuration": 10,
+              "maximumSize": 10,
+              "recordTrafficEnabled": true,
+              "repetitionInterval": 10
+            }
+          },
+          "whitelist": {
+            "use": "addressList"
+          },
+          "applicationWhitelist": {
+            "use": "addressListHTTP"
+          }
+        },
+        "addressList": {
+          "class": "Firewall_Address_List",
+          "addresses": ["10.0.0.10"]
+        },
+        "addressListHTTP": {
+          "class": "Firewall_Address_List",
+          "addresses": ["10.0.0.11"]
+        }
+
+
+
+
+
+
+
+
+
+      }
+    }
+  }
+}
