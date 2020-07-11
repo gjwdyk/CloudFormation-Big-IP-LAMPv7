@@ -32,7 +32,7 @@
 
     "BigIPImageID" : {
       "Type": "AWS::EC2::Image::Id",
-      "Default": "ami-0c9f55ccc6f778a91",
+      "Default": "ami-0daf7ecfd1d5848f4",
       "Description": "Provide a valid AMI ID of Big-IP in the AWS Region."
     },
     "BigIPInstanceType" : {
