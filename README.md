@@ -7,17 +7,17 @@
 
 
 
-This repositry reflects a journey in learning (AWS' CF & F5's AS3) and re-making of F5 Demo environment (vLab section under https://downloads.f5.com/).
+This repositry reflects a journey in learning (AWS' CF & F5's AS3) and automating the creation process of F5 Demo environment (vLab section under https://downloads.f5.com/).
 
 The default values in this CloudFormation template were designed to work in AWS Region Singapore (ap-southeast-1).
-The reason of that is because the adapted LAMPv7 VM is only imported to AWS Region Singapore, so the adapted LAMPv7 AMI exists only in AWS Region Singapore.
-To make this template works in any other AWS Regions, the adapted LAMPv7 AMI must exist in the targeted region and be accessible by the targeted account, before the execution of this template.
-Which can be achieved by re-importing the adapted LAMPv7 VM, or by copying the adapted LAMPv7 AMI in Singapore to the targeted AWS Region.
-Once the adapted LAMPv7 AMI exist in the targeted AWS Region, the AMI ID of the adapted LAMPv7 need to be indicated properly (i.e. not using the default value) during execution of this template.
+The reason of that is because the adapted LAMPv7 and Windows Server 2008 R2 VMs are only imported to AWS Region Singapore, so the adapted LAMPv7 and Windows Server 2008 R2 AMIs exist only in AWS Region Singapore.
+To make this template works in any other AWS Regions, the adapted LAMPv7 and Windows Server 2008 R2 AMIs must exist in the targeted region and be accessible by the targeted account, before the execution of this template.
+Which can be achieved by re-importing the adapted LAMPv7 and Windows Server 2008 R2 VMs, or by copying the adapted LAMPv7 and Windows Server 2008 R2 AMIs in Singapore to the targeted AWS Region.
+Once the adapted LAMPv7 and Windows Server 2008 R2 AMIs exist in the targeted AWS Region, the AMI ID of the adapted LAMPv7 and Windows Server 2008 R2 need to be indicated properly (i.e. not using the default value) during execution of this template.
 
 The Big-IP AMI should be available in most (if not ALL) of AWS Regions as part of F5 Networks effort to sell usage of the product in AWS.
 Only the correct AMI ID of Big-IP within the targeted AWS Region is needed, which should not be difficult to find.
-Just a note that this CloudFormation template were tested with Big-IP version 15.0.1 build 0.0.11.
+Just a note that this CloudFormation template were tested with Big-IP version 15.1.2.1 build 0.0.10.
 You will also need a valid F5 Big-IP License to execute this template.
 
 This CloudFormation template is designed for building Demo/Testing environment only. It was NOT designed to be used for Live/Commercial environment!
