@@ -9,7 +9,7 @@
 
 This repositry reflects a journey in learning (AWS' CF & F5's AS3) and automating the creation process of F5 Demo environment (vLab section under https://downloads.f5.com/).
 
-The default values in the CloudFormation templates were designed to work in AWS Region Singapore (ap-southeast-1).
+The default values in the CloudFormation templates were designed to work in AWS Region Singapore (`ap-southeast-1`).
 The reason of that is because the adapted LAMPv7 and Windows Server 2008 R2 VMs are only imported to AWS Region Singapore, so the adapted LAMPv7 and Windows Server 2008 R2 AMIs exist only in AWS Region Singapore.
 To make the templates work in any other AWS Regions, the adapted LAMPv7 and Windows Server 2008 R2 AMIs must exist in the targeted region and be accessible by the targeted account, before the execution of the template.
 Which can be achieved by re-importing the adapted LAMPv7 and Windows Server 2008 R2 VMs, or by copying the adapted LAMPv7 and Windows Server 2008 R2 AMIs in Singapore to the targeted AWS Region.
