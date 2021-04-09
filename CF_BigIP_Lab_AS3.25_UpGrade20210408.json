@@ -18,6 +18,14 @@
             "PrivateTraffic": {
                 "CIDR": "10.1.20.0/24"
             }
+        },
+        "IPAddressConfig": {
+            "BigIPInstance": {
+                "Management": "10.1.1.241",
+                "External": "10.1.10.241",
+                "Internal": "10.1.20.241",
+                "Control": "10.1.2.241"
+            }
         }
     },
     "Parameters": {
@@ -86,19 +94,19 @@
         },
         "BigIPTrafficTLSKey": {
             "Type": "String",
-            "Default": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/Certificates/aadc.link.rsa.key",
+            "Default": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/Certificates/aadc.link.rsa.key",
             "AllowedPattern": "^(http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$|^none$",
             "Description": "URL of the Private Key used to create the below TLS Certificate. This CloudFormation template requires the TLS Private Key and Certificate (i.e. Mandatory Input). If the Private Key is located at AWS S3, ensure that this CloudFormation template can read the file. If the Private Key is located at GitHub, ensure that this CloudFormation template can read the RAW file (i.e. not a web page containing the file)."
         },
         "BigIPTrafficTLSCertificate": {
             "Type": "String",
-            "Default": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/Certificates/aadc.link.rsa.crt",
+            "Default": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/Certificates/aadc.link.rsa.crt",
             "AllowedPattern": "^(http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$|^none$",
             "Description": "URL of the TLS Certificate which Big-IP will use to encrypt or decrypt the requests and responses between users and servers. This CloudFormation template requires the TLS Private Key and Certificate (i.e. Mandatory Input). If the Private Key is located at AWS S3, ensure that this CloudFormation template can read the file. If the Private Key is located at GitHub, ensure that this CloudFormation template can read the RAW file (i.e. not a web page containing the file)."
         },
         "AS3URL": {
             "Type": "String",
-            "Default": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/AS3-LTM-SSLoL-AVR-NOutB/AS3_LTM_SSLoL_AVR_NOutB.json",
+            "Default": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/AS3-LTM-SSLoL-AVR-NOutB/AS3_LTM_SSLoL_AVR_NOutB.json",
             "AllowedPattern": "^(http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$|^none$",
             "Description": "URL for the AS3 declaration JSON file to be deployed. Input *none* (without the *) to deploy without a service configuration."
         },
@@ -109,7 +117,7 @@
         },
         "SSMTPConfiguration": {
             "Type": "String",
-            "Default": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/SSMTP/GMailSSMTP.conf",
+            "Default": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/SSMTP/GMailSSMTP.conf",
             "AllowedPattern": "^(http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$|^none$",
             "Description": "URL of the SSMTP configuration. This CloudFormation template requires a SSMTP configuration (i.e. Mandatory Input). If the SSMTP configuration is located at AWS S3, ensure that this CloudFormation template can read the file. If the SSMTP configuration is located at GitHub, ensure that this CloudFormation template can read the RAW SSMTP configuration file (i.e. NOT a web page containing the SSMTP configuration file)."
         },
@@ -129,7 +137,7 @@
         },
         "UserAlertConfiguration": {
             "Type": "String",
-            "Default": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/SSMTP/user_alert.archive",
+            "Default": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/SSMTP/user_alert.archive",
             "AllowedPattern": "^(http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$|^none$",
             "Description": "URL of the additional user_alert configuration."
         },
@@ -154,22 +162,13 @@
             "AllowedPattern": "^(BIGIP\\-)((([0-9]+)\\.)+)([0-9]+)\\-((([0-9]+)\\.)+)([0-9]+)\\.iso$|^none$",
             "Description": "File Name of the upgrade .iso image."
         },
-        "allowPhoneHome": {
+        "AllowPhoneHome": {
             "AllowedValues": [
                 "Yes",
                 "No"
             ],
             "Default": "No",
             "Description": "This deployment can send anonymous device statistics to F5 to help us determine how to improve our solutions. If you select **No** statistics are not sent.",
-            "Type": "String"
-        },
-        "allowUsageAnalytics": {
-            "AllowedValues": [
-                "Yes",
-                "No"
-            ],
-            "Default": "No",
-            "Description": "This deployment can send anonymous template statistics to F5 to help us determine how to improve our solutions. If you select **No** statistics are not sent.",
             "Type": "String"
         },
         "Lidsa": {
@@ -252,8 +251,7 @@
                         "default": "F5 Big-IP Statistics Collection Parameters"
                     },
                     "Parameters": [
-                        "allowUsageAnalytics",
-                        "allowPhoneHome"
+                        "AllowPhoneHome"
                     ]
                 },
                 {},
@@ -340,11 +338,8 @@
                 "UpgradeImageFileName": {
                     "default": "Upgrade Image's File Name, of the .iso file used to upgrade the Big-IP image"
                 },
-                "allowPhoneHome": {
+                "AllowPhoneHome": {
                     "default": "Send Anonymous Device Statistics to F5"
-                },
-                "allowUsageAnalytics": {
-                    "default": "Send Anonymous Template Statistics to F5"
                 },
                 "Lidsa": {
                     "default": "Lorem Ipsum Dolor Sit Amet"
@@ -2586,15 +2581,26 @@
                                     "Fn::Join": [
                                         "",
                                         [
-                                            "GATEWAY_MAC=`ifconfig eth1 | egrep ether | awk '{print tolower($2)}'`; ",
-                                            "GATEWAY_CIDR_BLOCK=`/usr/bin/curl -s -f --retry 20 http://169.254.169.254/latest/meta-data/network/interfaces/macs/${GATEWAY_MAC}/subnet-ipv4-cidr-block`; ",
-                                            "GATEWAY_NET=${GATEWAY_CIDR_BLOCK%/*}; ",
-                                            "GATEWAY_PREFIX=${GATEWAY_CIDR_BLOCK#*/}; ",
-                                            "GATEWAY=`echo ${GATEWAY_NET} | awk -F. '{ print $1\".\"$2\".\"$3\".\"$4+1 }'`; ",
-                                            "GATEWAY_MAC2=`ifconfig eth2 | egrep ether | awk '{print tolower($2)}'`\n",
-                                            "GATEWAY_CIDR_BLOCK2=`/usr/bin/curl -s -f --retry 20 http://169.254.169.254/latest/meta-data/network/interfaces/macs/${GATEWAY_MAC2}/subnet-ipv4-cidr-block`; ",
-                                            "GATEWAY_PREFIX2=${GATEWAY_CIDR_BLOCK2#*/}; ",
-                                            "GATEWAY_MAC3=`ifconfig eth3 | egrep ether | awk '{print tolower($2)}'`;GATEWAY_CIDR_BLOCK3=`/usr/bin/curl -s -f --retry 20 http://169.254.169.254/latest/meta-data/network/interfaces/macs/${GATEWAY_MAC3}/subnet-ipv4-cidr-block`;GATEWAY_PREFIX3=${GATEWAY_CIDR_BLOCK3#*/};",
+                                            "GATEWAY_MAC_0=`ifconfig eth0 | egrep ether | awk '{print tolower($2)}'`; ",
+                                            "GATEWAY_CIDR_BLOCK_0=`/usr/bin/curl -s -f --retry 22 http://169.254.169.254/latest/meta-data/network/interfaces/macs/${GATEWAY_MAC_0}/subnet-ipv4-cidr-block`; ",
+                                            "GATEWAY_NET_0=${GATEWAY_CIDR_BLOCK_0%/*}; ",
+                                            "GATEWAY_PREFIX_0=${GATEWAY_CIDR_BLOCK_0#*/}; ",
+                                            "GATEWAY_0=`echo ${GATEWAY_NET_0} | awk -F. '{ print $1\".\"$2\".\"$3\".\"$4+1 }'`; ",
+                                            "GATEWAY_MAC_1=`ifconfig eth1 | egrep ether | awk '{print tolower($2)}'`; ",
+                                            "GATEWAY_CIDR_BLOCK_1=`/usr/bin/curl -s -f --retry 22 http://169.254.169.254/latest/meta-data/network/interfaces/macs/${GATEWAY_MAC_1}/subnet-ipv4-cidr-block`; ",
+                                            "GATEWAY_NET_1=${GATEWAY_CIDR_BLOCK_1%/*}; ",
+                                            "GATEWAY_PREFIX_1=${GATEWAY_CIDR_BLOCK_1#*/}; ",
+                                            "GATEWAY_1=`echo ${GATEWAY_NET_1} | awk -F. '{ print $1\".\"$2\".\"$3\".\"$4+1 }'`; ",
+                                            "GATEWAY_MAC_2=`ifconfig eth2 | egrep ether | awk '{print tolower($2)}'`; ",
+                                            "GATEWAY_CIDR_BLOCK_2=`/usr/bin/curl -s -f --retry 22 http://169.254.169.254/latest/meta-data/network/interfaces/macs/${GATEWAY_MAC_2}/subnet-ipv4-cidr-block`; ",
+                                            "GATEWAY_NET_2=${GATEWAY_CIDR_BLOCK_2%/*}; ",
+                                            "GATEWAY_PREFIX_2=${GATEWAY_CIDR_BLOCK_2#*/}; ",
+                                            "GATEWAY_2=`echo ${GATEWAY_NET_2} | awk -F. '{ print $1\".\"$2\".\"$3\".\"$4+1 }'`; ",
+                                            "GATEWAY_MAC_3=`ifconfig eth3 | egrep ether | awk '{print tolower($2)}'`; ",
+                                            "GATEWAY_CIDR_BLOCK_3=`/usr/bin/curl -s -f --retry 22 http://169.254.169.254/latest/meta-data/network/interfaces/macs/${GATEWAY_MAC_3}/subnet-ipv4-cidr-block`; ",
+                                            "GATEWAY_NET_3=${GATEWAY_CIDR_BLOCK_3%/*}; ",
+                                            "GATEWAY_PREFIX_3=${GATEWAY_CIDR_BLOCK_3#*/}; ",
+                                            "GATEWAY_3=`echo ${GATEWAY_NET_3} | awk -F. '{ print $1\".\"$2\".\"$3\".\"$4+1 }'`; ",
                                             "nohup /config/waitThenRun.sh ",
                                             "f5-rest-node /config/cloud/aws/node_modules/@f5devcentral/f5-cloud-libs/scripts/network.js ",
                                             "--host localhost ",
@@ -2606,7 +2612,6 @@
                                             "--wait-for ADMIN_CREATED ",
                                             "--signal NETWORK_CONFIG_DONE ",
                                             "--vlan name:external,nic:1.1 ",
-                                            "--default-gw ${GATEWAY} ",
                                             "--self-ip name:external-self,address:",
                                             {
                                                 "Fn::GetAtt": [
@@ -2614,7 +2619,7 @@
                                                     "PrimaryPrivateIpAddress"
                                                 ]
                                             },
-                                            "/${GATEWAY_PREFIX},vlan:external ",
+                                            "/${GATEWAY_PREFIX_1},vlan:external ",
                                             "--vlan name:internal,nic:1.2 ",
                                             "--self-ip name:internal-self,address:",
                                             {
@@ -2623,7 +2628,7 @@
                                                     "PrimaryPrivateIpAddress"
                                                 ]
                                             },
-                                            "/${GATEWAY_PREFIX2},vlan:internal ",
+                                            "/${GATEWAY_PREFIX_2},vlan:internal ",
                                             "--vlan name:control,nic:1.3 ",
                                             "--self-ip name:control-self,address:",
                                             {
@@ -2632,7 +2637,8 @@
                                                     "PrimaryPrivateIpAddress"
                                                 ]
                                             },
-                                            "/${GATEWAY_PREFIX3},vlan:control ",
+                                            "/${GATEWAY_PREFIX_3},vlan:control ",
+                                            "--default-gw ${GATEWAY_1} ",
                                             "&>> /var/log/cloud/aws/install.log < /dev/null &"
                                         ]
                                     ]
@@ -2656,7 +2662,15 @@
                                             "--user admin",
                                             "--password-url file:///config/cloud/aws/.adminPassword",
                                             "--password-encrypted",
-                                            "--hostname `/usr/bin/curl -s -f --retry 20 http://169.254.169.254/latest/meta-data/hostname`",
+                                            "--hostname `/usr/bin/curl -s -f --retry 22 --interface ",
+                                            {
+                                                "Fn::FindInMap": [
+                                                    "IPAddressConfig",
+                                                    "BigIPInstance",
+                                                    "Management"
+                                                ]
+                                            },
+                                            " http://169.254.169.254/latest/meta-data/hostname`",
                                             "--ntp ",
                                             {
                                                 "Ref": "NTPServer"
@@ -2748,9 +2762,16 @@
                                             "declare -a tmsh=()\n",
                                             "echo 'starting custom-config.sh'\n",
                                             "source /config/cloud/aws/onboard_config_vars\n",
-                                            "if [[ $allowPhoneHome == \"No\" ]]; then\n",
-                                            "    tmsh+=(\n",
-                                            "    \"tmsh modify sys software update auto-phonehome disabled\")\n",
+                                            "if [[ $AllowPhoneHome == \"No\" ]]; then\n",
+                                            "  tmsh+=(\n",
+                                            "  \"tmsh show sys software\"\n",
+                                            "  \"tmsh modify sys software update auto-phonehome disabled\"\n",
+                                            "  \"tmsh show sys software\")\n",
+                                            "else\n",
+                                            "  tmsh+=(\n",
+                                            "  \"tmsh show sys software\"\n",
+                                            "  \"tmsh modify sys software update auto-phonehome enabled\"\n",
+                                            "  \"tmsh show sys software\")\n",
                                             "fi\n",
                                             "echo \"HC's Mark --------->>>>>>>>> Adding Certificate Installation Command.\"\n",
                                             "tmsh+=(\n",
@@ -2763,9 +2784,9 @@
                                             "do\n",
                                             "  \"/config/cloud/aws/node_modules/@f5devcentral/f5-cloud-libs/scripts/waitForMcp.sh\"\n",
                                             "    if $CMD;then\n",
-                                            "        echo \"command $CMD successfully executed.\"\n",
+                                            "      echo \"command $CMD successfully executed.\"\n",
                                             "    else\n",
-                                            "        error_exit \"$LINENO: An error has occurred while executing $CMD. Aborting!\"\n",
+                                            "      error_exit \"$LINENO: An error has occurred while executing $CMD. Aborting!\"\n",
                                             "    fi\n",
                                             "done\n",
                                             "date\n",
@@ -2785,7 +2806,7 @@
                                             "        echo \"Deployment of custom application succeeded.\"\n",
                                             "        deployed=\"yes\"\n",
                                             "      else\n",
-                                            "         echo \"Failed to deploy custom application; continuing...\"\n",
+                                            "        echo \"Failed to deploy custom application; continuing...\"\n",
                                             "      fi\n",
                                             "    else\n",
                                             "      echo \"Custom config was not valid JSON, continuing...\"\n",
@@ -2805,18 +2826,6 @@
                                 "group": "root",
                                 "mode": "000755",
                                 "owner": "root"
-                            },
-                            "/config/cloud/aws/f5.cloud_logger.v1.0.0.tmpl": {
-                                "group": "root",
-                                "mode": "000755",
-                                "owner": "root",
-                                "source": "http://cdn.f5.com/product/cloudsolutions/iapps/common/f5-cloud-logger/v1.0.0/f5.cloud_logger.v1.0.0.tmpl"
-                            },
-                            "/config/cloud/aws/f5.service_discovery.tmpl": {
-                                "group": "root",
-                                "mode": "000755",
-                                "owner": "root",
-                                "source": "http://cdn.f5.com/product/cloudsolutions/iapps/common/f5-service-discovery/v2.3.2/f5.service_discovery.tmpl"
                             },
                             "/config/cloud/aws/getNameServer.sh": {
                                 "content": {
@@ -2871,9 +2880,9 @@
                                                 "Ref": "UpgradeBigIP"
                                             },
                                             "'\n",
-                                            "allowPhoneHome='",
+                                            "AllowPhoneHome='",
                                             {
-                                                "Ref": "allowPhoneHome"
+                                                "Ref": "AllowPhoneHome"
                                             },
                                             "'\n",
                                             "passwd=$(f5-rest-node /config/cloud/aws/node_modules/@f5devcentral/f5-cloud-libs/scripts/decryptDataFromFile.js --data-file /config/cloud/aws/.adminPassword)\n",
@@ -2903,9 +2912,9 @@
                                             "for CMD in \"${tmsh[@]}\"\n",
                                             "do\n",
                                             "  if $CMD;then\n",
-                                            "      echo \"command $CMD successfully executed.\"\n",
+                                            "    echo \"command $CMD successfully executed.\"\n",
                                             "  else\n",
-                                            "      error_exit \"$LINENO: An error has occurred while executing $CMD. Aborting!\"\n",
+                                            "    error_exit \"$LINENO: An error has occurred while executing $CMD. Aborting!\"\n",
                                             "  fi\n",
                                             "done\n",
                                             "date\n",
@@ -2918,24 +2927,6 @@
                                 "mode": "000755",
                                 "owner": "root"
                             },
-                            "/var/config/rest/downloads/f5-appsvcs-3.25.0-3.noarch.rpm": {
-                                "group": "root",
-                                "mode": "000755",
-                                "owner": "root",
-                                "source": "http://cdn.f5.com/product/cloudsolutions/f5-appsvcs-extension/v3.25.0/f5-appsvcs-3.25.0-3.noarch.rpm"
-                            },
-                            "/config/cloud/f5-cloud-libs-aws.tar.gz": {
-                                "group": "root",
-                                "mode": "000755",
-                                "owner": "root",
-                                "source": "http://cdn.f5.com/product/cloudsolutions/f5-cloud-libs-aws/v2.9.1/f5-cloud-libs-aws.tar.gz"
-                            },
-                            "/config/cloud/f5-cloud-libs.tar.gz": {
-                                "group": "root",
-                                "mode": "000755",
-                                "owner": "root",
-                                "source": "http://cdn.f5.com/product/cloudsolutions/f5-cloud-libs/v4.24.0/f5-cloud-libs.tar.gz"
-                            },
                             "/config/installCloudLibs.sh": {
                                 "content": {
                                     "Fn::Join": [
@@ -2945,30 +2936,30 @@
                                             "echo about to execute",
                                             "checks=0",
                                             "while [ $checks -lt 120 ]; do echo checking mcpd",
-                                            "    tmsh -a show sys mcp-state field-fmt | grep -q running",
-                                            "    if [ $? == 0 ]; then",
-                                            "        echo mcpd ready",
-                                            "        break",
-                                            "    fi",
-                                            "    echo mcpd not ready yet",
-                                            "    let checks=checks+1",
-                                            "    sleep 10",
+                                            "  tmsh -a show sys mcp-state field-fmt | grep -q running",
+                                            "  if [ $? == 0 ]; then",
+                                            "    echo mcpd ready",
+                                            "    break",
+                                            "  fi",
+                                            "  echo mcpd not ready yet",
+                                            "  let checks=checks+1",
+                                            "  sleep 10",
                                             "done",
                                             "echo loading verifyHash script",
                                             "if ! tmsh load sys config merge file /config/verifyHash; then",
-                                            "    echo cannot validate signature of /config/verifyHash",
-                                            "    exit",
+                                            "  echo cannot validate signature of /config/verifyHash",
+                                            "  exit",
                                             "fi",
                                             "echo loaded verifyHash",
                                             "declare -a filesToVerify=(\"/config/cloud/f5-cloud-libs.tar.gz\" \"/config/cloud/f5-cloud-libs-aws.tar.gz\" \"/var/config/rest/downloads/f5-appsvcs-3.25.0-3.noarch.rpm\" \"/config/cloud/aws/f5.service_discovery.tmpl\" \"/config/cloud/aws/f5.cloud_logger.v1.0.0.tmpl\")",
                                             "for fileToVerify in \"${filesToVerify[@]}\"",
                                             "do",
-                                            "    echo verifying \"$fileToVerify\"",
-                                            "    if ! tmsh run cli script verifyHash \"$fileToVerify\"; then",
-                                            "        echo \"$fileToVerify\" is not valid",
-                                            "        exit 1",
-                                            "    fi",
-                                            "    echo verified \"$fileToVerify\"",
+                                            "  echo verifying \"$fileToVerify\"",
+                                            "  if ! tmsh run cli script verifyHash \"$fileToVerify\"; then",
+                                            "    echo \"$fileToVerify\" is not valid",
+                                            "    exit 1",
+                                            "  fi",
+                                            "  echo verified \"$fileToVerify\"",
                                             "done",
                                             "mkdir -p /config/cloud/aws/node_modules/@f5devcentral",
                                             "echo expanding f5-cloud-libs.tar.gz",
@@ -3048,11 +3039,11 @@
                                         [
                                             "#!/bin/bash",
                                             "while true; do echo \"waiting for cloud libs install to complete\"",
-                                            "    if [ -f /config/cloud/cloudLibsReady ]; then",
-                                            "        break",
-                                            "    else",
-                                            "        sleep 10",
-                                            "    fi",
+                                            "  if [ -f /config/cloud/cloudLibsReady ]; then",
+                                            "    break",
+                                            "  else",
+                                            "    sleep 10",
+                                            "  fi",
                                             "done",
                                             "\"$@\""
                                         ]
@@ -3061,6 +3052,90 @@
                                 "group": "root",
                                 "mode": "000755",
                                 "owner": "root"
+                            },
+                            "/config/cloud/f5-cloud-libs.tar.gz": {
+                                "group": "root",
+                                "mode": "000755",
+                                "owner": "root",
+                                "source": "http://cdn.f5.com/product/cloudsolutions/f5-cloud-libs/v4.24.0/f5-cloud-libs.tar.gz"
+                            },
+                            "/config/cloud/f5-cloud-libs-aws.tar.gz": {
+                                "group": "root",
+                                "mode": "000755",
+                                "owner": "root",
+                                "source": "http://cdn.f5.com/product/cloudsolutions/f5-cloud-libs-aws/v2.9.1/f5-cloud-libs-aws.tar.gz"
+                            },
+                            "/var/config/rest/downloads/f5-appsvcs-3.25.0-3.noarch.rpm": {
+                                "group": "root",
+                                "mode": "000755",
+                                "owner": "root",
+                                "source": "http://cdn.f5.com/product/cloudsolutions/f5-appsvcs-extension/v3.25.0/f5-appsvcs-3.25.0-3.noarch.rpm"
+                            },
+                            "/config/cloud/aws/f5.service_discovery.tmpl": {
+                                "group": "root",
+                                "mode": "000755",
+                                "owner": "root",
+                                "source": "http://cdn.f5.com/product/cloudsolutions/iapps/common/f5-service-discovery/v2.3.2/f5.service_discovery.tmpl"
+                            },
+                            "/config/cloud/aws/f5.cloud_logger.v1.0.0.tmpl": {
+                                "group": "root",
+                                "mode": "000755",
+                                "owner": "root",
+                                "source": "http://cdn.f5.com/product/cloudsolutions/iapps/common/f5-cloud-logger/v1.0.0/f5.cloud_logger.v1.0.0.tmpl"
+                            },
+                            "/config/BigIPSendMail": {
+                                "group": "root",
+                                "mode": "000777",
+                                "owner": "root",
+                                "source": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/SSMTP/BigIPSendMail"
+                            },
+                            "/config/ClearFlags": {
+                                "group": "root",
+                                "mode": "000777",
+                                "owner": "root",
+                                "source": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/SSMTP/ClearFlags"
+                            },
+                            "/config/RotateLog": {
+                                "group": "root",
+                                "mode": "000777",
+                                "owner": "root",
+                                "source": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/SSMTP/RotateLog"
+                            },
+                            "/config/lidsa/BigIPLidsa": {
+                                "group": "root",
+                                "mode": "000777",
+                                "owner": "root",
+                                "source": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/lidsa/BigIPLidsa"
+                            },
+                            "/config/lidsa/BigIPSendMailLidsa": {
+                                "group": "root",
+                                "mode": "000777",
+                                "owner": "root",
+                                "source": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/lidsa/BigIPSendMailLidsa"
+                            },
+                            "/config/lidsa/ClearLidsaFlags": {
+                                "group": "root",
+                                "mode": "000777",
+                                "owner": "root",
+                                "source": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/lidsa/ClearLidsaFlags"
+                            },
+                            "/etc/crontab": {
+                                "group": "root",
+                                "mode": "000644",
+                                "owner": "root",
+                                "source": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/Upgrade/crontab"
+                            },
+                            "/etc/anacrontab": {
+                                "group": "root",
+                                "mode": "000644",
+                                "owner": "root",
+                                "source": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/Upgrade/anacrontab"
+                            },
+                            "/config/UpGrade": {
+                                "group": "root",
+                                "mode": "000777",
+                                "owner": "root",
+                                "source": "https://raw.githubusercontent.com/gjwdyk/Notes-CF-BigIP-Lab/master/Upgrade/UpGrade"
                             },
                             "/etc/ssmtp/ArchiveSSMTPConfiguration": {
                                 "group": "root",
@@ -3137,6 +3212,18 @@
                                 "mode": "000644",
                                 "owner": "root"
                             },
+                            "/config/lidsa/IPToAWSInstanceMetaData": {
+                                "content": {
+                                    "Fn::FindInMap": [
+                                        "IPAddressConfig",
+                                        "BigIPInstance",
+                                        "Management"
+                                    ]
+                                },
+                                "group": "root",
+                                "mode": "000644",
+                                "owner": "root"
+                            },
                             "/config/BigIPAdminPassword": {
                                 "content": {
                                     "Ref": "BigIPAdminPassword"
@@ -3190,60 +3277,6 @@
                                     ]
                                 }
                             },
-                            "/config/BigIPSendMail": {
-                                "group": "root",
-                                "mode": "000777",
-                                "owner": "root",
-                                "source": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/SSMTP/BigIPSendMail"
-                            },
-                            "/config/ClearFlags": {
-                                "group": "root",
-                                "mode": "000777",
-                                "owner": "root",
-                                "source": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/SSMTP/ClearFlags"
-                            },
-                            "/config/RotateLog": {
-                                "group": "root",
-                                "mode": "000777",
-                                "owner": "root",
-                                "source": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/SSMTP/RotateLog"
-                            },
-                            "/config/lidsa/BigIPLidsa": {
-                                "group": "root",
-                                "mode": "000777",
-                                "owner": "root",
-                                "source": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/lidsa/BigIPLidsa"
-                            },
-                            "/config/lidsa/BigIPSendMailLidsa": {
-                                "group": "root",
-                                "mode": "000777",
-                                "owner": "root",
-                                "source": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/lidsa/BigIPSendMailLidsa"
-                            },
-                            "/config/lidsa/ClearLidsaFlags": {
-                                "group": "root",
-                                "mode": "000777",
-                                "owner": "root",
-                                "source": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/lidsa/ClearLidsaFlags"
-                            },
-                            "/etc/crontab": {
-                                "group": "root",
-                                "mode": "000644",
-                                "owner": "root",
-                                "source": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/Upgrade/crontab"
-                            },
-                            "/etc/anacrontab": {
-                                "group": "root",
-                                "mode": "000644",
-                                "owner": "root",
-                                "source": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/Upgrade/anacrontab"
-                            },
-                            "/config/UpGrade": {
-                                "group": "root",
-                                "mode": "000777",
-                                "owner": "root",
-                                "source": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/Upgrade/UpGrade"
-                            },
                             "/config/cloud/domain.name.rsa.key": {
                                 "group": "root",
                                 "mode": "000644",
@@ -3280,7 +3313,7 @@
                     }
                 ],
                 "IamInstanceProfile": {
-                    "Ref": "bigipServiceDiscoveryProfile"
+                    "Ref": "BigIPServiceDiscoveryProfile"
                 },
                 "ImageId": {
                     "Ref": "BigIPImageID"
@@ -3381,7 +3414,7 @@
             },
             "Type": "AWS::EC2::Instance"
         },
-        "bigipServiceDiscoveryAccessRole": {
+        "BigIPServiceDiscoveryAccessRole": {
             "Properties": {
                 "AssumeRolePolicyDocument": {
                     "Statement": [
@@ -3432,12 +3465,12 @@
             },
             "Type": "AWS::IAM::Role"
         },
-        "bigipServiceDiscoveryProfile": {
+        "BigIPServiceDiscoveryProfile": {
             "Properties": {
                 "Path": "/",
                 "Roles": [
                     {
-                        "Ref": "bigipServiceDiscoveryAccessRole"
+                        "Ref": "BigIPServiceDiscoveryAccessRole"
                     }
                 ]
             },
