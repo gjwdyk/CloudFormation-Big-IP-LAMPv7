@@ -1,4 +1,8 @@
-# CloudFormation Big-IP LAMPv7
+# Big-IP Lab Environment
+
+
+
+## CloudFormation Big-IP LAMPv7
 
 
 
@@ -7,7 +11,7 @@
 
 
 
-This repositry reflects a journey in learning (AWS' CF & F5's AS3) and automating the creation process of F5 Demo environment (vLab section under https://downloads.f5.com/).
+This repository reflects a journey in learning (AWS' CF & F5's AS3) and automating the creation process of F5 Demo environment (vLab section under https://downloads.f5.com/).
 
 The default values in the CloudFormation templates were designed to work in AWS Region Singapore (`ap-southeast-1`).
 The reason of that is because the adapted LAMPv7 and Windows Server 2008 R2 VMs are only imported to AWS Region Singapore, so the adapted LAMPv7 and Windows Server 2008 R2 AMIs exist only in AWS Region Singapore.
@@ -107,7 +111,7 @@ provided the replacement AS3 Declaration fits into the Big-IP environment provid
 
 
 
-# CloudFormation Big-IP LAMPv7 Windows-Server-2008-R2
+## CloudFormation Big-IP LAMPv7 Windows-Server-2008-R2
 
 
 
@@ -255,6 +259,7 @@ To Do:
 
 - [ ] Add Upgrade software version feature.
 - [ ] Add TMSH Commands file feature.
+- [ ] Support more Regions (Tokyo, Seoul, HK)
 - [ ] Let's Encrypt Automation.
 - [ ] Update existing AS3 with Pools from Windows Server ?
 - [ ] tmsh modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true
