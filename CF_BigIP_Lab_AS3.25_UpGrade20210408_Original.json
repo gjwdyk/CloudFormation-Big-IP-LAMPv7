@@ -18,6 +18,14 @@
       "PrivateTraffic": {
         "CIDR": "10.1.20.0\/24"
       }
+    },
+    "IPAddressConfig": {
+      "BigIPInstance": {
+        "Management": "10.1.1.241",
+        "External": "10.1.10.241",
+        "Internal": "10.1.20.241",
+        "Control": "10.1.2.241"
+      }
     }
   },
 
@@ -162,22 +170,13 @@
       "Description": "File Name of the upgrade .iso image."
     },
 
-    "allowPhoneHome": {
+    "AllowPhoneHome": {
      "AllowedValues": [
       "Yes",
       "No"
      ],
      "Default": "No",
      "Description": "This deployment can send anonymous device statistics to F5 to help us determine how to improve our solutions. If you select **No** statistics are not sent.",
-     "Type": "String"
-    },
-    "allowUsageAnalytics": {
-     "AllowedValues": [
-      "Yes",
-      "No"
-     ],
-     "Default": "No",
-     "Description": "This deployment can send anonymous template statistics to F5 to help us determine how to improve our solutions. If you select **No** statistics are not sent.",
      "Type": "String"
     },
 
@@ -264,8 +263,7 @@
        "default": "F5 Big-IP Statistics Collection Parameters"
       },
       "Parameters": [
-       "allowUsageAnalytics",
-       "allowPhoneHome"
+       "AllowPhoneHome"
       ]
      },
      {},
@@ -357,11 +355,8 @@
       "default": "Upgrade Image's File Name, of the .iso file used to upgrade the Big-IP image"
      },
 
-     "allowPhoneHome": {
+     "AllowPhoneHome": {
       "default": "Send Anonymous Device Statistics to F5"
-     },
-     "allowUsageAnalytics": {
-      "default": "Send Anonymous Template Statistics to F5"
      },
 
      "Lidsa": {
@@ -2054,7 +2049,7 @@
              "--user admin",
              "--password-url file:///config/cloud/aws/.adminPassword",
              "--password-encrypted",
-             "--hostname `/usr/bin/curl -s -f --retry 20 http://169.254.169.254/latest/meta-data/hostname`",
+             "--hostname `/usr/bin/curl -s -f --retry 22 --interface ", { "Fn::FindInMap": [ "IPAddressConfig", "BigIPInstance", "Management" ] }, " http://169.254.169.254/latest/meta-data/hostname`",
              "--ntp ", { "Ref": "NTPServer" },
              "--tz ", { "Ref": "TimeZone" },
              "--dns ${NAME_SERVER}",
@@ -2135,9 +2130,16 @@
            "declare -a tmsh=()\n",
            "echo 'starting custom-config.sh'\n",
            "source /config/cloud/aws/onboard_config_vars\n",
-           "if [[ $allowPhoneHome == \"No\" ]]; then\n",
+           "if [[ $AllowPhoneHome == \"No\" ]]; then\n",
            "    tmsh+=(\n",
-           "    \"tmsh modify sys software update auto-phonehome disabled\")\n",
+           "    \"tmsh show sys software\"\n",
+           "    \"tmsh modify sys software update auto-phonehome disabled\"\n",
+           "    \"tmsh show sys software\")\n",
+           "else\n",
+           "    tmsh+=(\n",
+           "    \"tmsh show sys software\"\n",
+           "    \"tmsh modify sys software update auto-phonehome enabled\"\n",
+           "    \"tmsh show sys software\")\n",
            "fi\n",
            "echo \"HC's Mark --------->>>>>>>>> Adding Certificate Installation Command.\"\n",
            "tmsh+=(\n",
@@ -2195,18 +2197,6 @@
         "mode": "000755",
         "owner": "root"
        },
-       "/config/cloud/aws/f5.cloud_logger.v1.0.0.tmpl": {
-        "group": "root",
-        "mode": "000755",
-        "owner": "root",
-        "source": "http://cdn.f5.com/product/cloudsolutions/iapps/common/f5-cloud-logger/v1.0.0/f5.cloud_logger.v1.0.0.tmpl"
-       },
-       "/config/cloud/aws/f5.service_discovery.tmpl": {
-        "group": "root",
-        "mode": "000755",
-        "owner": "root",
-        "source": "http://cdn.f5.com/product/cloudsolutions/iapps/common/f5-service-discovery/v2.3.2/f5.service_discovery.tmpl"
-       },
        "/config/cloud/aws/getNameServer.sh": {
         "content": {
          "Fn::Join": [
@@ -2240,7 +2230,7 @@
            "ntpServer='", { "Ref": "NTPServer" }, "'\n",
            "declarationUrl='", { "Ref": "AS3URL" }, "'\n",
            "UpgradeBigIP='", { "Ref": "UpgradeBigIP" }, "'\n",
-           "allowPhoneHome='", { "Ref": "allowPhoneHome" }, "'\n",
+           "AllowPhoneHome='", { "Ref": "AllowPhoneHome" }, "'\n",
            "passwd=$(f5-rest-node /config/cloud/aws/node_modules/@f5devcentral/f5-cloud-libs/scripts/decryptDataFromFile.js --data-file /config/cloud/aws/.adminPassword)\n",
            "managementGuiPort='443'\n"
           ]
@@ -2284,24 +2274,6 @@
         "group": "root",
         "mode": "000755",
         "owner": "root"
-       },
-       "/var/config/rest/downloads/f5-appsvcs-3.25.0-3.noarch.rpm": {
-        "group": "root",
-        "mode": "000755",
-        "owner": "root",
-        "source": "http://cdn.f5.com/product/cloudsolutions/f5-appsvcs-extension/v3.25.0/f5-appsvcs-3.25.0-3.noarch.rpm"
-       },
-       "/config/cloud/f5-cloud-libs-aws.tar.gz": {
-        "group": "root",
-        "mode": "000755",
-        "owner": "root",
-        "source": "http://cdn.f5.com/product/cloudsolutions/f5-cloud-libs-aws/v2.9.1/f5-cloud-libs-aws.tar.gz"
-       },
-       "/config/cloud/f5-cloud-libs.tar.gz": {
-        "group": "root",
-        "mode": "000755",
-        "owner": "root",
-        "source": "http://cdn.f5.com/product/cloudsolutions/f5-cloud-libs/v4.24.0/f5-cloud-libs.tar.gz"
        },
        "/config/installCloudLibs.sh": {
         "content": {
@@ -2430,78 +2402,37 @@
         "owner": "root"
        },
 
-       "/etc/ssmtp/ArchiveSSMTPConfiguration": {
+       "/config/cloud/f5-cloud-libs.tar.gz": {
         "group": "root",
-        "mode": "000644",
+        "mode": "000755",
         "owner": "root",
-        "source": { "Ref": "SSMTPConfiguration" }
+        "source": "http://cdn.f5.com/product/cloudsolutions/f5-cloud-libs/v4.24.0/f5-cloud-libs.tar.gz"
        },
-       "/config/user_alert.archive": {
+       "/config/cloud/f5-cloud-libs-aws.tar.gz": {
         "group": "root",
-        "mode": "000644",
+        "mode": "000755",
         "owner": "root",
-        "source": { "Ref": "UserAlertConfiguration" }
+        "source": "http://cdn.f5.com/product/cloudsolutions/f5-cloud-libs-aws/v2.9.1/f5-cloud-libs-aws.tar.gz"
        },
-       "/config/BigIPUnitID": {
-        "content": { "Fn::Join" : [ "_", [ { "Ref": "TagPreFix" }, { "Ref": "AWS::StackName" }, "BigIPInstance" ] ] },
+       "/var/config/rest/downloads/f5-appsvcs-3.25.0-3.noarch.rpm": {
         "group": "root",
-        "mode": "000644",
-        "owner": "root"
-       },
-       "/etc/ssmtp/eMailNotificationRecipient": {
-        "content": { "Ref": "eMailNotificationRecipient" },
-        "group": "root",
-        "mode": "000644",
-        "owner": "root"
-       },
-       "/config/lidsa/BigIPModules": {
-        "content": { "Ref": "BigIPModules" },
-        "group": "root",
-        "mode": "000644",
-        "owner": "root"
-       },
-       "/config/lidsa/TimeZone": {
-        "content": { "Ref": "TimeZone" },
-        "group": "root",
-        "mode": "000644",
-        "owner": "root"
-       },
-       "/config/lidsa/NTPServer": {
-        "content": { "Ref": "NTPServer" },
-        "group": "root",
-        "mode": "000644",
-        "owner": "root"
-       },
-       "/config/lidsa/TemporaryLidsa": {
-        "content": { "Ref": "Lidsa" },
-        "group": "root",
-        "mode": "000644",
-        "owner": "root"
-       },
-       "/config/BigIPAdminPassword": {
-        "content": { "Ref": "BigIPAdminPassword" },
-        "group": "root",
-        "mode": "000644",
-        "owner": "root"
-       },
-       "/config/UpgradeImageFileName": {
-        "content": { "Ref": "UpgradeImageFileName" },
-        "group": "root",
-        "mode": "000644",
-        "owner": "root"
-       },
-       "/shared/images/UpgradeImage.iso": {
-        "group": "root",
-        "mode": "000644",
+        "mode": "000755",
         "owner": "root",
-        "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] }
+        "source": "http://cdn.f5.com/product/cloudsolutions/f5-appsvcs-extension/v3.25.0/f5-appsvcs-3.25.0-3.noarch.rpm"
        },
-       "/shared/images/UpgradeImage.iso.md5": {
+       "/config/cloud/aws/f5.service_discovery.tmpl": {
         "group": "root",
-        "mode": "000644",
+        "mode": "000755",
         "owner": "root",
-        "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] }
+        "source": "http://cdn.f5.com/product/cloudsolutions/iapps/common/f5-service-discovery/v2.3.2/f5.service_discovery.tmpl"
        },
+       "/config/cloud/aws/f5.cloud_logger.v1.0.0.tmpl": {
+        "group": "root",
+        "mode": "000755",
+        "owner": "root",
+        "source": "http://cdn.f5.com/product/cloudsolutions/iapps/common/f5-cloud-logger/v1.0.0/f5.cloud_logger.v1.0.0.tmpl"
+       },
+
        "/config/BigIPSendMail": {
         "group": "root",
         "mode": "000777",
@@ -2557,6 +2488,84 @@
         "source": "https://raw.githubusercontent.com/gjwdyk/CloudFormation-Big-IP-LAMPv7/master/Upgrade/UpGrade"
        },
 
+       "/etc/ssmtp/ArchiveSSMTPConfiguration": {
+        "group": "root",
+        "mode": "000644",
+        "owner": "root",
+        "source": { "Ref": "SSMTPConfiguration" }
+       },
+       "/config/user_alert.archive": {
+        "group": "root",
+        "mode": "000644",
+        "owner": "root",
+        "source": { "Ref": "UserAlertConfiguration" }
+       },
+       "/config/BigIPUnitID": {
+        "content": { "Fn::Join" : [ "_", [ { "Ref": "TagPreFix" }, { "Ref": "AWS::StackName" }, "BigIPInstance" ] ] },
+        "group": "root",
+        "mode": "000644",
+        "owner": "root"
+       },
+       "/etc/ssmtp/eMailNotificationRecipient": {
+        "content": { "Ref": "eMailNotificationRecipient" },
+        "group": "root",
+        "mode": "000644",
+        "owner": "root"
+       },
+       "/config/lidsa/BigIPModules": {
+        "content": { "Ref": "BigIPModules" },
+        "group": "root",
+        "mode": "000644",
+        "owner": "root"
+       },
+       "/config/lidsa/TimeZone": {
+        "content": { "Ref": "TimeZone" },
+        "group": "root",
+        "mode": "000644",
+        "owner": "root"
+       },
+       "/config/lidsa/NTPServer": {
+        "content": { "Ref": "NTPServer" },
+        "group": "root",
+        "mode": "000644",
+        "owner": "root"
+       },
+       "/config/lidsa/TemporaryLidsa": {
+        "content": { "Ref": "Lidsa" },
+        "group": "root",
+        "mode": "000644",
+        "owner": "root"
+       },
+       "/config/lidsa/IPToAWSInstanceMetaData": {
+        "content": { "Fn::FindInMap": [ "IPAddressConfig", "BigIPInstance", "Management" ] },
+        "group": "root",
+        "mode": "000644",
+        "owner": "root"
+       },
+       "/config/BigIPAdminPassword": {
+        "content": { "Ref": "BigIPAdminPassword" },
+        "group": "root",
+        "mode": "000644",
+        "owner": "root"
+       },
+       "/config/UpgradeImageFileName": {
+        "content": { "Ref": "UpgradeImageFileName" },
+        "group": "root",
+        "mode": "000644",
+        "owner": "root"
+       },
+       "/shared/images/UpgradeImage.iso": {
+        "group": "root",
+        "mode": "000644",
+        "owner": "root",
+        "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] }
+       },
+       "/shared/images/UpgradeImage.iso.md5": {
+        "group": "root",
+        "mode": "000644",
+        "owner": "root",
+        "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] }
+       },
        "/config/cloud/domain.name.rsa.key": {
         "group": "root",
         "mode": "000644",
@@ -2589,7 +2598,7 @@
       "NoDevice": {}
      }
     ],
-    "IamInstanceProfile": { "Ref": "bigipServiceDiscoveryProfile" },
+    "IamInstanceProfile": { "Ref": "BigIPServiceDiscoveryProfile" },
     "ImageId": { "Ref": "BigIPImageID" },
     "InstanceType": { "Ref": "BigIPInstanceType" },
     "KeyName": { "Ref": "EC2SSHKeyPair" },
@@ -2668,7 +2677,7 @@
    "Type": "AWS::EC2::Instance"
   },
 
-  "bigipServiceDiscoveryAccessRole": {
+  "BigIPServiceDiscoveryAccessRole": {
    "Properties": {
     "AssumeRolePolicyDocument": {
      "Statement": [
@@ -2715,12 +2724,12 @@
    },
    "Type": "AWS::IAM::Role"
   },
-  "bigipServiceDiscoveryProfile": {
+  "BigIPServiceDiscoveryProfile": {
    "Properties": {
     "Path": "/",
     "Roles": [
      {
-      "Ref": "bigipServiceDiscoveryAccessRole"
+      "Ref": "BigIPServiceDiscoveryAccessRole"
      }
     ]
    },
