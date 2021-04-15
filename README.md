@@ -259,7 +259,6 @@ provided the replacement AS3 Declaration fits into the Big-IP environment provid
 
 To Do:
 
-- [ ] Add TMSH Commands file feature.
 - [ ] Support more Regions (Tokyo, Seoul, HK)
 - [ ] Let's Encrypt Automation.
 - [ ] tmsh modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true
