@@ -260,6 +260,7 @@ provided the replacement AS3 Declaration fits into the Big-IP environment provid
 To Do:
 
 - [ ] Support more Regions (Tokyo, Seoul, HK)
+- [ ] Clean Up on Termination ("DeleteOnTermination": true): Volume, Network Interface, EIP, etc.
 - [ ] Let's Encrypt Automation.
 - [ ] tmsh modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true
 - [ ] Default ASM Profiles
