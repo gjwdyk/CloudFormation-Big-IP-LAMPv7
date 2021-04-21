@@ -259,12 +259,19 @@ provided the replacement AS3 Declaration fits into the Big-IP environment provid
 
 To Do:
 
-- [ ] Support more Regions (Tokyo, Seoul, HK)
 - [ ] Clean Up on Termination ("DeleteOnTermination": true): Volume, Network Interface, EIP, etc.
 - [ ] Let's Encrypt Automation.
 - [ ] tmsh modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true
 - [ ] Default ASM Profiles
 - [ ] APM (when applicable)
+
+
+
+Notes to Remember:
+
+- [ ] Osaka Region is only for "Local" (whatever it means); and therefore can not copy the AMIs to Osaka.
+- [ ] HongKong Region does NOT support the EC2 Type which the LAMPv7 requires. Therefore can not launch in HongKong.
+- [ ] Tried Bahrain and Stockholm, as these are ourside Asia Pacific (which is not Allowed by F5 Admin); can not copy AMIs to those regions.
 
 
 
