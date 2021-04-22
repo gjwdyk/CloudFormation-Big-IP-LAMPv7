@@ -1,13 +1,11 @@
 # Big-IP Lab Environment
 
+This repository serves only as journal notes to the [Big-IP Lab](https://github.com/gjwdyk/BigIP-Lab) project.
+If you're looking for a CloudFormation template to be used for building Big-IP Lab environment, then kindly refer to [Big-IP Lab](https://github.com/gjwdyk/BigIP-Lab).
+
 
 
 ## CloudFormation Big-IP LAMPv7
-
-
-
-
-
 
 
 
@@ -158,7 +156,6 @@ The [CF_BigIP_LAMP_Win_SSLOffL_eMail_Lidsa.json](CF_BigIP_LAMP_Win_SSLOffL_eMail
 3. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
 4. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
 5. Configure SSMTP and user_alert.conf to send email notification in case of an event. The example works with GMail's SMTP, and sending notification when a pool has no available member, and when the pool back to having a member available to handle the traffic.
-6. Lorem Ipsum Dolor Sit Amet mock-up field.
 
 Default AS3 Declaration for [CF_BigIP_LAMP_Win_SSLOffL_eMail_Lidsa.json](CF_BigIP_LAMP_Win_SSLOffL_eMail_Lidsa.json) is [AS3-LTM-SSLOffLoad-NoOutBound](AS3-LTM-SSLOffLoad-NoOutBound/), but can be changed during the CloudFormation template deployment,
 provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CF_BigIP_LAMP_Win_SSLOffL_eMail_Lidsa.json](CF_BigIP_LAMP_Win_SSLOffL_eMail_Lidsa.json) template.
@@ -177,8 +174,7 @@ The [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json](CF_BigIP_LAMP_Win_SSLoL_eM
 3. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
 4. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
 5. Configure SSMTP and user_alert.conf to send email notification in case of an event. The example works with GMail's SMTP, and sending notification when a pool has no available member, and when the pool back to having a member available to handle the traffic.
-6. Lorem Ipsum Dolor Sit Amet mock-up field.
-7. Upgrade F5 Application Services 3 Extension from previous version 3.5.1-5 into version 3.20.0-3 .
+6. Upgrade F5 Application Services 3 Extension from previous version 3.5.1-5 into version 3.20.0-3 .
 
 Default AS3 Declaration for [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json](CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json) is [AS3-LTM-SSLoL-AVR-NOutB](AS3-LTM-SSLoL-AVR-NOutB/), but can be changed during the CloudFormation template deployment,
 provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json](CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20.json) template.
@@ -197,9 +193,8 @@ The [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20_AddOn.json](CF_BigIP_LAMP_Win_SS
 3. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
 4. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
 5. Configure SSMTP and user_alert.conf to send email notification in case of an event. The example works with GMail's SMTP, and sending notification when a pool has no available member, and when the pool back to having a member available to handle the traffic.
-6. Lorem Ipsum Dolor Sit Amet mock-up field.
-7. Upgrade F5 Application Services 3 Extension from previous version 3.5.1-5 into version 3.20.0-3 .
-8. Improved OnBoarding to support Add-On Module Registration/Licensing.
+6. Upgrade F5 Application Services 3 Extension from previous version 3.5.1-5 into version 3.20.0-3 .
+7. Improved OnBoarding to support Add-On Module Registration/Licensing.
 
 Default AS3 Declaration for [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20_AddOn.json](CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20_AddOn.json) is [AS3-LTM-SSLoL-AVR-NOutB](AS3-LTM-SSLoL-AVR-NOutB/), but can be changed during the CloudFormation template deployment,
 provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20_AddOn.json](CF_BigIP_LAMP_Win_SSLoL_eMail_Lidsa_AS3.20_AddOn.json) template.
@@ -218,10 +213,9 @@ The [CF_BigIP_Lab_AS3.25_UpGrade.json](CF_BigIP_Lab_AS3.25_UpGrade.json) templat
 3. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
 4. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
 5. Configure SSMTP and user_alert.conf to send email notification in case of an event. The example works with GMail's SMTP, and sending notification when a pool has no available member, and when the pool back to having a member available to handle the traffic.
-6. Lorem Ipsum Dolor Sit Amet mock-up field.
-7. Upgrade F5 Application Services 3 Extension from previous version 3.20.0-3 into version 3.25.0-3 . Along with updating the On-Boarding Script.
-8. Improved OnBoarding to support Add-On Module Registration/Licensing.
-9. Feature to immediately Upgrade the Big-IP image to another version. The reason for this feature is that upgrading the template takes time, while Big-IP security/vulnerability risk needs to be addressed immediately. Upgrading the Big-IP image immediately to a more safe version may help to alleviate the issue, without waiting for the CloudFormation template to be upgraded.
+6. Upgrade F5 Application Services 3 Extension from previous version 3.20.0-3 into version 3.25.0-3 . Along with updating the On-Boarding Script.
+7. Improved OnBoarding to support Add-On Module Registration/Licensing.
+8. Feature to immediately Upgrade the Big-IP image to another version. The reason for this feature is that upgrading the template takes time, while Big-IP security/vulnerability risk needs to be addressed immediately. Upgrading the Big-IP image immediately to a more safe version may help to alleviate the issue, without waiting for the CloudFormation template to be upgraded.
 
 Default AS3 Declaration for [CF_BigIP_Lab_AS3.25_UpGrade.json](CF_BigIP_Lab_AS3.25_UpGrade.json) is [AS3-LTM-SSLoL-AVR-NOutB](AS3-LTM-SSLoL-AVR-NOutB/), but can be changed during the CloudFormation template deployment,
 provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CF_BigIP_Lab_AS3.25_UpGrade.json](CF_BigIP_Lab_AS3.25_UpGrade.json) template.
@@ -240,16 +234,38 @@ The [CF_BigIP_Lab_AS3.25_TMSH_UpGrade.json](CF_BigIP_Lab_AS3.25_TMSH_UpGrade.jso
 3. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
 4. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
 5. Configure SSMTP and user_alert.conf to send email notification in case of an event. The example works with GMail's SMTP, and sending notification when a pool has no available member, and when the pool back to having a member available to handle the traffic.
-6. Lorem Ipsum Dolor Sit Amet mock-up field.
-7. Upgrade F5 Application Services 3 Extension from previous version 3.20.0-3 into version 3.25.0-3 . Along with updating the On-Boarding Script.
-8. Improved OnBoarding to support Add-On Module Registration/Licensing.
-9. Feature to immediately Upgrade the Big-IP image to another version. The reason for this feature is that upgrading the template takes time, while Big-IP security/vulnerability risk needs to be addressed immediately. Upgrading the Big-IP image immediately to a more safe version may help to alleviate the issue, without waiting for the CloudFormation template to be upgraded.
-10. Feature to configure the Big-IP with a TMSH Commands File.
+6. Upgrade F5 Application Services 3 Extension from previous version 3.20.0-3 into version 3.25.0-3 . Along with updating the On-Boarding Script.
+7. Improved OnBoarding to support Add-On Module Registration/Licensing.
+8. Feature to immediately Upgrade the Big-IP image to another version. The reason for this feature is that upgrading the template takes time, while Big-IP security/vulnerability risk needs to be addressed immediately. Upgrading the Big-IP image immediately to a more safe version may help to alleviate the issue, without waiting for the CloudFormation template to be upgraded.
+9. Feature to configure the Big-IP with a TMSH Commands File.
 
 Default AS3 Declaration for [CF_BigIP_Lab_AS3.25_TMSH_UpGrade.json](CF_BigIP_Lab_AS3.25_TMSH_UpGrade.json) is [AS3-LTM-SSLoL-AVR-NOutB](AS3-LTM-SSLoL-AVR-NOutB/), but can be changed during the CloudFormation template deployment,
 provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CF_BigIP_Lab_AS3.25_TMSH_UpGrade.json](CF_BigIP_Lab_AS3.25_TMSH_UpGrade.json) template.
 
 <a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=BigIP-Lab&templateURL=https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/CF/CF_BigIP_Lab_AS3.25_TMSH_UpGrade.json"><img src="https://github.com/gjwdyk/Notes-CF-BigIP-Lab/raw/master/Figures/JigokuShoujoLaunchStack.png" width="140" height="22"/></a>
+
+
+
+***
+
+<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=BigIP-Lab&templateURL=https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/CF/CF_BigIP_Lab_AS3.25_TMSH_UpGrade_Region_Original.json"><img align="right" src="https://github.com/gjwdyk/BigIP-Lab/raw/main/Figures/LaunchStackJigokuShoujo.png" width="140" height="22"/></a>
+
+The [CF_BigIP_Lab_AS3.25_TMSH_UpGrade_Region.json](CF_BigIP_Lab_AS3.25_TMSH_UpGrade_Region.json) template creates:
+1. One F5's LAMPv7 instance which had been adapted to AWS environment in certain extend.
+2. One F5's Windows Server 2008 R2 instance which had been adapted to AWS environment in certain extend.
+3. One F5's Big-IP instance, license the instance, configure the networking part, and potentially also configure the services with the AS3 Declaration URL.
+4. Import the TLS Private Key and Certificate into the Big-IP, so the corresponding AS3 Declaration can use them to create SSL Profiles.
+5. Configure SSMTP and user_alert.conf to send email notification in case of an event. The example works with GMail's SMTP, and sending notification when a pool has no available member, and when the pool back to having a member available to handle the traffic.
+6. Upgrade F5 Application Services 3 Extension from previous version 3.20.0-3 into version 3.25.0-3 . Along with updating the On-Boarding Script.
+7. Improved OnBoarding to support Add-On Module Registration/Licensing.
+8. Feature to immediately Upgrade the Big-IP image to another version. The reason for this feature is that upgrading the template takes time, while Big-IP security/vulnerability risk needs to be addressed immediately. Upgrading the Big-IP image immediately to a more safe version may help to alleviate the issue, without waiting for the CloudFormation template to be upgraded.
+9. Feature to configure the Big-IP with a TMSH Commands File.
+10. Enable the CloudFormation stack to be additionally launched on AWS Region Tokyo and Seoul.
+
+Default AS3 Declaration for [CF_BigIP_Lab_AS3.25_TMSH_UpGrade_Region.json](CF_BigIP_Lab_AS3.25_TMSH_UpGrade_Region.json) is [AS3-LTM-SSLoL-AVR-NOutB](AS3-LTM-SSLoL-AVR-NOutB/), but can be changed during the CloudFormation template deployment,
+provided the replacement AS3 Declaration fits into the Big-IP environment provided by the [CF_BigIP_Lab_AS3.25_TMSH_UpGrade_Region.json](CF_BigIP_Lab_AS3.25_TMSH_UpGrade_Region.json) template.
+
+<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=BigIP-Lab&templateURL=https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/CF/CF_BigIP_Lab_AS3.25_TMSH_UpGrade_Region.json"><img src="https://github.com/gjwdyk/BigIP-Lab/raw/main/Figures/JigokuShoujoLaunchStack.png" width="140" height="22"/></a>
 
 
 
