@@ -286,7 +286,7 @@ To Do:
 Notes to Remember:
 
 - [ ] Osaka Region is only for "Local" (whatever it means); and therefore can not copy the AMIs to Osaka.
-- [ ] HongKong Region does NOT support the EC2 Type which the LAMPv7 requires. Therefore can not launch in HongKong.
+- [ ] HongKong Region does NOT support the EC2 Type which the LAMPv7 requires (which is "32-bit (x86)" architecture/machine). Therefore can not launch in HongKong.
 - [ ] Tried Bahrain and Stockholm, as these are ourside Asia Pacific (which is not Allowed by F5 Admin); can not copy AMIs to those regions.
 
 
