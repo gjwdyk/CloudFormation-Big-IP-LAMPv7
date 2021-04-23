@@ -273,7 +273,7 @@ provided the replacement AS3 Declaration fits into the Big-IP environment provid
 
 
 
-To Do:
+Considered Feature(s):
 
 - [ ] Clean Up on Termination ("DeleteOnTermination": true): Volume, Network Interface, EIP, etc.
 - [ ] Let's Encrypt Automation.
@@ -283,7 +283,7 @@ To Do:
 
 
 
-Notes to Remember:
+Notes:
 
 - [ ] Osaka Region is only for "Local" (whatever it means); and therefore can not copy the AMIs to Osaka.
 - [ ] HongKong Region does NOT support the EC2 Type which the LAMPv7 requires (which is "32-bit (x86)" architecture/machine). Therefore can not launch in HongKong.
@@ -292,5 +292,15 @@ Notes to Remember:
 
 
 ***
+
+<br><br><br>
+```
+╔═╦═════════════════╦═╗
+╠═╬═════════════════╬═╣
+║ ║ End of Document ║ ║
+╠═╬═════════════════╬═╣
+╚═╩═════════════════╩═╝
+```
+<br><br><br>
 
 
