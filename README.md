@@ -1,6 +1,6 @@
-# Big-IP Lab Environment
+# Big-IP Lab Environment (Deprecated)
 
-This repository serves only as journal notes to the [Big-IP Lab](https://github.com/gjwdyk/BigIP-Lab) project.
+This repository serves only as historical/journal notes to the [Big-IP Lab](https://github.com/gjwdyk/BigIP-Lab) project.
 If you're looking for a CloudFormation template to be used for building Big-IP Lab environment, then kindly refer to [Big-IP Lab](https://github.com/gjwdyk/BigIP-Lab).
 
 
